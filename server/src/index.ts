@@ -5,7 +5,7 @@ import { ENV } from "../config/env.config";
 
 const app = express();
 
-const db = drizzle(ENV.DATABASE_URL)
+//const db = drizzle(ENV.DATABASE_URL)
 
 app.get("/", (req, res) => {
     res.send("Hello World!");

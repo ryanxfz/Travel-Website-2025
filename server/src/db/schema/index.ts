@@ -1,5 +1,5 @@
 import * as user from './user.schema';
 
-export  const databaseSchema = {
+export const databaseSchema = {
     ...user,
 }

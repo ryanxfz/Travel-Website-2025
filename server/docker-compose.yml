@@ -15,4 +15,3 @@ services:
 
 volumes:
   db_fwe_ha_data:
-  driver: local
