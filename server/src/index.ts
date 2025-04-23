@@ -1,16 +1,10 @@
-// @ts-ignore
-import express from "express";
-import { drizzle } from "drizzle-orm/node-postgres"
-import { ENV } from "../config/env.config";
+import { DI, intializeDependencyInjection } from './dependency-injection';
 
-const app = express();
+intializeDependencyInjection();
 
-//const db = drizzle(ENV.DATABASE_URL)
-
-app.get("/", (req, res) => {
-    res.send("Hello World!");
-})
-
-app.listen(ENV.PORT, () =>{
-    console.log(`Server is running in port ${ENV.PORT}`)
-})
+try{
+    DI.server.start();
+}catch(error){
+    console.error('Error starting server:', error);
+    process.exit(1);
+}
