@@ -22,6 +22,7 @@
     "drizzle-orm": "^0.41.0",
     "drizzle-zod": "^0.7.1",
     "express": "^5.1.0",
+    "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.2",
     "pg": "^8.14.1",
     "pretier": "^0.0.1",

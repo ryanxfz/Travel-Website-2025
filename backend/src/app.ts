@@ -1,16 +1,20 @@
 import express, { Application } from 'express';
 import { globalErrorHandler } from './utils/global.error';
+import { Routes } from './routes/routes';
+import helmet from 'helmet';
 
 export class App {
     private app: Application;
 
-    constructor(){
+    constructor(private readonly routes: Routes){
         this.app = express();
         this.registerMiddlewares();
+        this.registerRoutes();
         this.registerErrorHandlers();
     }
 
     private registerMiddlewares(){
+        this.app.use(helmet());
         this.app.use(express.json());
 
         this.app.use((req, res, next) => {
@@ -18,6 +22,11 @@ export class App {
             next();
         });
     }
+
+    private registerRoutes() {
+        this.app.use('/api', this.routes.getRouter());
+    }
+    
 
     private registerErrorHandlers(){
         this.app.use(globalErrorHandler);

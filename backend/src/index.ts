@@ -1,5 +1,4 @@
 import { DI, intializeDependencyInjection } from './dependency-injection';
-
 intializeDependencyInjection();
 
 try{
