@@ -1,14 +1,15 @@
-import { db, type Database } from '..';
-import { eq } from "drizzle-orm";
-import { travelDestination } from '../schema/travel_to_destination.schema';
+import { db } from "..";
 
-export class DestinationRepository {
-    async addDestinations(travelId: string, destinationIds: string[]){
-        await db.insert(travelDestination).values(
-            destinationIds.map(destinationId => ({
-                travelId,
-                destinationId,
-            }))
-        ).execute();
+export class DestinationRepository{
+    async createDestination(destination: any) {
+        const { name, description, timePeriod, activity, images } = destination;
+        const newDestination = {
+            name,
+            description,
+            timePeriod,
+            activity,
+            images
+        };
+        await db.insert(destination).values(newDestination);
     }
 }
