@@ -1,6 +1,7 @@
 import { db, type Database } from '..';
 import { and, eq, inArray } from "drizzle-orm";
 import { travelDestination } from '../schema/travel_to_destination.schema';
+import { travel } from '../schema/travel.schema';
 
 export class TravelRepository {
     async addDestinations(travelId: string, destinationIds: string[]){
@@ -20,5 +21,16 @@ export class TravelRepository {
               inArray(travelDestination.destinationId, destinationIds)
             )
         );
+    }
+
+    async getTravelsByDestinationId(destinationId: string) {
+        return await db.select()
+      .from(travel)
+      .innerJoin(
+        travelDestination,
+        eq(travel.id, travelDestination.travelId)
+      )
+      .where(eq(travelDestination.destinationId, destinationId))
+      .execute();
     }
 }

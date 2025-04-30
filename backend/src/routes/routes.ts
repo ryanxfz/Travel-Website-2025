@@ -1,32 +1,23 @@
 import { Router } from 'express';
+import { DestinationController } from '../controller/destination.controller';
+import { TravelController } from '../controller/travel.controller';
 
-import { AuthController } from '../controller/auth.controller';
-
-export class Routes {
+export class Routes{
   private router: Router;
 
-  constructor(private readonly authController: AuthController) {
+  constructor(
+    private readonly destinationController: DestinationController,
+    private readonly travelController: TravelController,
+  ){
     this.router = Router();
     this.initializeRoutes();
   }
+  
+  private initializeRoutes(){
 
-  /**
-   * Initializes the routes for the application.
-   * ?.bind(this.authController.) ensures that 'this' inside the controller method refers to the controller instance rather than Express's context
-   */
-  private initializeRoutes(): void {
-    // Auth routes
-    this.router.post(
-      '/auth/register',
-      this.authController.registerUser.bind(this.authController),
-    );
-    this.router.post(
-      '/auth/login',
-      this.authController.loginUser.bind(this.authController),
-    );
   }
 
-  public getRouter(): Router {
+  public getRouter(): Router{
     return this.router;
   }
 }

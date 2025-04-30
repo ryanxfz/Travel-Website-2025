@@ -23,8 +23,12 @@ export const travelDestinationZodSchema = {
             message: "At least one destination is required",
         })
     }),
+    getTravelsByDestination: z.object({
+        destinationId: uuidSchema
+    }),
 }
 
 export type createDestination = z.infer<typeof createDestinationZodSchema>;
 export type addTravelDestination = z.infer<typeof travelDestinationZodSchema.addDestination>;
 export type removeTravelDestination = z.infer<typeof travelDestinationZodSchema.removeDestination>;
+export type getTravelsByDestination = z.infer<typeof travelDestinationZodSchema.getTravelsByDestination>;

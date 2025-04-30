@@ -1,4 +1,6 @@
+import { eq } from "drizzle-orm";
 import { db } from "..";
+import { destination } from "../schema/destination.schema";
 
 export class DestinationRepository{
     async createDestination(destination: any) {
@@ -11,5 +13,9 @@ export class DestinationRepository{
             images
         };
         await db.insert(destination).values(newDestination);
+    }
+
+    async deleteDestination(destinationId: string) {
+        await db.delete(destination).where(eq(destination.id, destinationId));
     }
 }
