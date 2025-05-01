@@ -30,6 +30,14 @@ export const travelDestinationZodSchema = {
     getTravelsByDestination: z.object({
         destinationId: uuidSchema
     }),
+
+    createTravel: z.object({
+        name: z.string().min(1),
+        description: z.string().min(1),
+        timePeriod: z.string().min(1),
+        images: z.string().min(1),
+        participants: z.string().min(1)
+    })
 }
 
 export type createDestination = z.infer<typeof createDestinationZodSchema>;

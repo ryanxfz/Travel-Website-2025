@@ -43,6 +43,32 @@ export class TravelController{
         }
     }
 
+    async createTravelController(req: Request, res: Response){
+        const validation = travelDestinationZodSchema.createTravel.safeParse(req.body);
+        if(!validation.success) {
+            return res.status(400).json({ error: validation.error.errors });
+        }
+        try {
+            const newTravel = await this.repository.createTravel(validation.data);
+            return res.status(201).json(newTravel); // Return the created travel
+        } catch (error) {
+            console.error("Creation error:", error); // Add logging
+            return res.status(500).json({
+                error: "Error: Database Operation Failed",
+            });
+        }
+    }
+
+
+    async getAllTravelsController(req: Request, res: Response){
+        try{
+            const travels = await this.repository.getAllTravels();
+            return res.status(200).json(travels);
+        } catch (error){
+            return res.status(500).json({error: "Error: Database Operation Failed"});
+        }
+    }
+
     async getTravelsByDestination(req: Request, res: Response){
         const validation = travelDestinationZodSchema.getTravelsByDestination.safeParse({
             destinationId: req.params.destinationId,

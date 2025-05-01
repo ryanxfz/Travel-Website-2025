@@ -34,4 +34,15 @@ export class TravelRepository {
       .where(eq(travelDestination.destinationId, destinationId))
       .execute();
     }
+
+    async getAllTravels() {
+        return await db.select().from(travel).execute();
+    }
+
+    async createTravel(data: typeof travel.$inferInsert) {
+        const [newTravel] = await this.database.insert(travel)
+            .values(data)
+            .returning();
+        return newTravel;
+    }
 }

@@ -10,7 +10,6 @@ export class DestinationController{
         if(!validation.success) {
             return res.status(400).json({ error: validation.error.errors });
         }
-
         try {
             const newDestination = await this.repository.createDestination(validation.data);
             return res.status(201).json(newDestination); // Return the created destination
@@ -33,7 +32,7 @@ export class DestinationController{
 
         try{
             await this.repository.deleteDestination(validation.data.destinationId);
-            return res.status(204).end();
+            return res.status(204).json({message: "Deletion Succesful"});
         } catch (error){
             return res.status(500).json({error: "Error: Database Operation Failed"});
         }
