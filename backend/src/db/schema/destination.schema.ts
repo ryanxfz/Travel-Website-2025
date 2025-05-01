@@ -1,4 +1,4 @@
-import { text, timestamp, pgTable, serial, date } from "drizzle-orm/pg-core";
+import { text, pgTable, date } from "drizzle-orm/pg-core";
 import { commonSchema } from "./common.schema";
 
 export const destination = pgTable('destinations', {

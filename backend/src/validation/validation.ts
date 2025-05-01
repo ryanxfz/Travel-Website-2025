@@ -10,6 +10,10 @@ export const createDestinationZodSchema = z.object({
     images: z.string().min(1, { message: "Images are required" }),
 });
 
+export const deleteDestinationZodSchema = z.object({
+    destinationId: uuidSchema,
+});
+
 export const travelDestinationZodSchema = {
     addDestination: z.object({
         travelId: uuidSchema,

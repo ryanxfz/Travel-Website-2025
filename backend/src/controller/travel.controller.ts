@@ -25,7 +25,7 @@ export class TravelController{
         }
     }
 
-    async deleteDestination(req: Request, res: Response){
+    async removeDestination(req: Request, res: Response){
         const validation = travelDestinationZodSchema.removeDestination.safeParse({
             travelId: req.params.travelId,
             destinationId: req.body.destinationId,
