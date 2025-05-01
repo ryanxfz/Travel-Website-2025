@@ -1,32 +1,49 @@
 import { Router } from 'express';
+import { DestinationController } from '../controller/destination.controller';
+import { TravelController } from '../controller/travel.controller';
 
-import { AuthController } from '../controller/auth.controller';
-
-export class Routes {
+export class Routes{
   private router: Router;
 
-  constructor(private readonly authController: AuthController) {
+  constructor(
+    private readonly destinationController: DestinationController,
+    private readonly travelController: TravelController,
+  ){
     this.router = Router();
     this.initializeRoutes();
   }
+  
+  private initializeRoutes(){
+    //destination routes
+    this.router.get('/destinations', 
+      (req,res,next) => {
+        this.destinationController.getAllDestinationsController(req,res).catch(next);
+      });
 
-  /**
-   * Initializes the routes for the application.
-   * ?.bind(this.authController.) ensures that 'this' inside the controller method refers to the controller instance rather than Express's context
-   */
-  private initializeRoutes(): void {
-    // Auth routes
-    this.router.post(
-      '/auth/register',
-      this.authController.registerUser.bind(this.authController),
-    );
-    this.router.post(
-      '/auth/login',
-      this.authController.loginUser.bind(this.authController),
-    );
+    this.router.get('/destinations/:destinationId',
+      (req,res,next) => {
+        this.destinationController.getDestinationsByIdController(req,res).catch(next);
+      });
+
+    this.router.post('/destinations',
+      (req,res,next) => {
+        this.destinationController.createDestinationController(req,res).catch(next);
+      });
+    
+    this.router.delete('/destinations/:destinationId',
+      (req,res,next) => {
+        this.destinationController.deleteDestinationController(req,res).catch(next);
+      });
+
+      //all travels that has a specific destination
+    this.router.get('/travels/destination/:destinationId',
+      (req,res,next) => {
+        this.travelController.getTravelsByDestination(req,res).catch(next);
+      });
+
   }
 
-  public getRouter(): Router {
+  public getRouter(): Router{
     return this.router;
   }
 }

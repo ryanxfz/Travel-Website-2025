@@ -1,5 +1,9 @@
-import * as user from './user.schema';
+import * as destination from "./destination.schema";
+import * as travel from "./travel.schema";
+import * as travelDestination from "./travel_to_destination.schema";
 
 export const databaseSchema = {
-    ...user,
-}
+    ...destination,
+    ...travel,
+    ...travelDestination,
+};

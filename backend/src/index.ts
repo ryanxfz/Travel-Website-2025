@@ -1,5 +1,5 @@
-import { DI, intializeDependencyInjection } from './dependency-injection';
-intializeDependencyInjection();
+import { initaliseDependencyInjection, DI } from "./dependency-injection";
+initaliseDependencyInjection();
 
 try{
     DI.server.start();
