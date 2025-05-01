@@ -14,6 +14,11 @@ export class Routes{
   }
   
   private initializeRoutes(){
+    //default route
+    this.router.get('/', (req,res) => {
+      res.status(200).json({message: 'Travel app is running'});
+    });
+
     //destination routes
     this.router.get('/destinations', 
       (req,res,next) => {

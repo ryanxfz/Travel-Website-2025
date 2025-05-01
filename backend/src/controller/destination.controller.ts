@@ -11,11 +11,14 @@ export class DestinationController{
             return res.status(400).json({ error: validation.error.errors });
         }
 
-        try{
-            await this.repository.createDestination(validation.data);
-            return res.status(201).end();
-        } catch (error){
-            return res.status(500).json({error: "Error: Database Operation Failed"});
+        try {
+            const newDestination = await this.repository.createDestination(validation.data);
+            return res.status(201).json(newDestination); // Return the created destination
+        } catch (error) {
+            console.error("Creation error:", error); // Add logging
+            return res.status(500).json({
+                error: "Error: Database Operation Failed",
+            });
         }
     }
 

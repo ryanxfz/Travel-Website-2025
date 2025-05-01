@@ -5,18 +5,14 @@ import { destination } from "../schema/destination.schema";
 export class DestinationRepository{
     constructor(private readonly database: Database) {}
     
-    async createDestination(destination: any) {
-        const { name, description, timePeriod, activity, images } = destination;
-        const newDestination = {
-            name,
-            description,
-            timePeriod,
-            activity,
-            images
-        };
-        await db.insert(destination).values(newDestination);
+    async createDestination(data: typeof destination.$inferInsert) {
+        // Use this proper Drizzle ORM insert with returning
+        const [newDestination] = await this.database.insert(destination)
+            .values(data)
+            .returning();
+        return newDestination;
     }
-
+    
     async deleteDestination(destinationId: string) {
         await db.delete(destination).where(eq(destination.id, destinationId));
     }
