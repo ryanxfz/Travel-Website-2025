@@ -5,6 +5,7 @@ import { travel } from '../schema/travel.schema';
 
 export class TravelRepository {
     constructor(private readonly database: Database) {}
+    
     async addDestinations(travelId: string, destinationIds: string[]){
         await db.insert(travelDestination).values(
             destinationIds.map(destinationId => ({

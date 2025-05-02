@@ -51,14 +51,23 @@ export class Routes{
         this.travelController.createTravelController(req,res).catch(next);
       })
 
-      //all travels that has a specific destination
+    //add destination to travel
+    this.router.post('/travels/:travelId/:destinations',
+      (req,res,next) => {
+        this.travelController.addDestination(req,res).catch(next);
+    });
+
+    //remove destination from travel
+    this.router.delete('/travels/:travelId/destinations',
+      (req,res,next) => {
+        this.travelController.removeDestination(req,res).catch(next);
+    }); 
+
+    //all travels that has a specific destination
     this.router.get('/travels/destination/:destinationId',
       (req,res,next) => {
         this.travelController.getTravelsByDestination(req,res).catch(next);
       });
-
-    
-
   }
 
   public getRouter(): Router{
