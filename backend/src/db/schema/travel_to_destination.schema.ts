@@ -1,6 +1,7 @@
 import { pgTable, uuid, primaryKey } from "drizzle-orm/pg-core";
 import { destination } from "./destination.schema";
 import { travel } from "./travel.schema";
+import { relations } from "drizzle-orm";
 
 
 export const travelDestination = pgTable(
@@ -13,3 +14,17 @@ export const travelDestination = pgTable(
         pk: primaryKey(t.travelId, t.destinationId),
     }),
 );
+
+export const travelToDestinationRelations = relations(
+    travelDestination,
+    ({ one }) => ({
+      travel: one(travel, {
+        fields: [travelDestination.travelId],
+        references: [travel.id],
+      }),
+      destination: one(destination, {
+        fields: [travelDestination.destinationId],
+        references: [destination.id],
+      }),
+    })
+  );
