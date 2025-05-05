@@ -65,11 +65,17 @@ export class Routes{
         this.travelController.removeDestination(req,res).catch(next);
     }); 
 
+    //get travel by name
+    this.router.get('/travels/name/:travelName',
+      (req,res,next) => {
+        this.travelController.getTravelByNameController(req,res).catch(next);
+    });
+
     //all travels that has a specific destination
     this.router.get('/travels/destination/:destinationId',
       (req,res,next) => {
-        this.travelController.getTravelsByDestination(req,res).catch(next);
-      });
+        this.travelController.getTravelsByDestinationIdController(req,res).catch(next);
+    });
   }
 
   public getRouter(): Router{

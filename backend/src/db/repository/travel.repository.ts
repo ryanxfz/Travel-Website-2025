@@ -40,6 +40,10 @@ export class TravelRepository {
         return await db.select().from(travel).execute();
     }
 
+    async getTravelByName(travelName: string) {
+        return await db.select().from(travel).where(eq(travel.name, travelName)).execute();
+    }
+
     async createTravel(data: typeof travel.$inferInsert) {
         const [newTravel] = await this.database.insert(travel)
             .values(data)

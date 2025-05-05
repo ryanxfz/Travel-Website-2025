@@ -31,6 +31,10 @@ export const travelDestinationZodSchema = {
         destinationId: uuidSchema
     }),
 
+    getTravelByName: z.object({
+        travelName: z.string().min(1, { message: "Travel name is required" })
+    }),
+
     createTravel: z.object({
         name: z.string().min(1),
         description: z.string().min(1),

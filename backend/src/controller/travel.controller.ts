@@ -69,7 +69,24 @@ export class TravelController{
         }
     }
 
-    async getTravelsByDestination(req: Request, res: Response){
+    async getTravelByNameController(req: Request, res: Response){
+        const validation = travelDestinationZodSchema.getTravelByName.safeParse({
+            travelName: req.params.travelName,
+        });
+
+        if(!validation.success){
+            return res.status(400).json({ error: validation.error.errors });
+        }
+
+        try{
+            const travel = await this.repository.getTravelByName(validation.data.travelName);
+            return res.status(200).json(travel);
+        }catch (error){
+            return res.status(500).json({error: "Error: Database Operation Failed"});
+        }
+    }
+
+    async getTravelsByDestinationIdController(req: Request, res: Response){
         const validation = travelDestinationZodSchema.getTravelsByDestination.safeParse({
             destinationId: req.params.destinationId,
         });
