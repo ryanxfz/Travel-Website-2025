@@ -5,13 +5,13 @@ import { Request, Response } from "express";
 export class DestinationController{
     constructor(private repository: DestinationRepository){}
 
-    async createDestinationController(req: Request, res: Response){
+    async postDestination(req: Request, res: Response){
         const validation = createDestinationZodSchema.safeParse(req.body);
         if(!validation.success) {
             return res.status(400).json({ error: validation.error.errors });
         }
         try {
-            const newDestination = await this.repository.createDestination(validation.data);
+            const newDestination = await this.repository.insertDestination(validation.data);
             return res.status(201).json(newDestination); // Return the created destination
         } catch (error) {
             console.error("Creation error:", error); // Add logging
@@ -21,7 +21,7 @@ export class DestinationController{
         }
     }
 
-    async deleteDestinationController(req: Request, res: Response){
+    async deleteDestination(req: Request, res: Response){
         const validation = deleteDestinationZodSchema.safeParse({
             destinationId: req.params.destinationId,
         });
@@ -31,26 +31,26 @@ export class DestinationController{
         }
 
         try{
-            await this.repository.deleteDestination(validation.data.destinationId);
+            await this.repository.removeDestination(validation.data.destinationId);
             return res.status(204).json({message: "Deletion Succesful"});
         } catch (error){
             return res.status(500).json({error: "Error: Database Operation Failed"});
         }
     }
 
-    async getDestinationsByIdController(req: Request, res: Response){
+    async getDestinationsById(req: Request, res: Response){
         try{
             const id = req.params.destinationId;
-            const destinations = await this.repository.getDestinationById(id);
+            const destinations = await this.repository.findDestinationById(id);
             return res.status(200).json(destinations);
         } catch (error){
             return res.status(500).json({error: "Error: Database Operation Failed"});
         }
     }
 
-    async getAllDestinationsController(req: Request, res: Response){
+    async getAllDestinations(req: Request, res: Response){
         try{
-            const destinations = await this.repository.getAllDestinations();
+            const destinations = await this.repository.findAllDestinations();
             return res.status(200).json(destinations);
         } catch (error){
             return res.status(500).json({error: "Error: Database Operation Failed"});

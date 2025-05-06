@@ -6,7 +6,7 @@ import { travel } from '../schema/travel.schema';
 export class TravelRepository {
     constructor(private readonly database: Database) {}
     
-    async addDestinations(travelId: string, destinationIds: string[]){
+    async insertDestinations(travelId: string, destinationIds: string[]){
         await db.insert(travelDestination).values(
             destinationIds.map(destinationId => ({
                 travelId,
@@ -35,7 +35,7 @@ export class TravelRepository {
         );
     }
 
-    async getTravelsByDestinationId(destinationId: string) {
+    async findTravelsByDestinationId(destinationId: string) {
         return await db.select()
       .from(travel)
       .innerJoin(
@@ -46,15 +46,15 @@ export class TravelRepository {
       .execute();
     }
 
-    async getAllTravels() {
+    async findAllTravels() {
         return await db.select().from(travel).execute();
     }
 
-    async getTravelByName(travelName: string) {
+    async findTravelByName(travelName: string) {
         return await db.select().from(travel).where(eq(travel.name, travelName)).execute();
     }
 
-    async createTravel(data: typeof travel.$inferInsert) {
+    async insertTravel(data: typeof travel.$inferInsert) {
         const [newTravel] = await this.database.insert(travel)
             .values(data)
             .returning();

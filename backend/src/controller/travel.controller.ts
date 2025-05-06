@@ -6,7 +6,7 @@ import { destination } from '../db/schema/destination.schema';
 export class TravelController{
     constructor(private repository: TravelRepository){}
 
-    async addDestination(req: Request, res: Response){
+    async postDestination(req: Request, res: Response){
         const validation = travelDestinationZodSchema.addDestination.safeParse({
             travelId: req.params.travelId,
             destinationId: req.body.destinationId,
@@ -15,16 +15,16 @@ export class TravelController{
         if(!validation.success) {
             return res.status(400).json({ error: validation.error.errors });
         }
-        
+
         try{
-            await this.repository.addDestinations(validation.data.travelId, validation.data.destinationId);
+            await this.repository.insertDestinations(validation.data.travelId, validation.data.destinationId);
             return res.status(204).end();
         } catch (error){
             return res.status(500).json({error: "Error: Database Operation Failed"});
         }
     }
 
-    async removeDestination(req: Request, res: Response){
+    async deleteDestination(req: Request, res: Response){
         const validation = travelDestinationZodSchema.removeDestination.safeParse({
             travelId: req.params.travelId,
             destinationId: req.body.destinationId,
@@ -42,13 +42,13 @@ export class TravelController{
         }
     }
 
-    async createTravelController(req: Request, res: Response){
+    async postTravel(req: Request, res: Response){
         const validation = travelDestinationZodSchema.createTravel.safeParse(req.body);
         if(!validation.success) {
             return res.status(400).json({ error: validation.error.errors });
         }
         try {
-            const newTravel = await this.repository.createTravel(validation.data);
+            const newTravel = await this.repository.insertTravel(validation.data);
             return res.status(201).json(newTravel); // Return the created travel
         } catch (error) {
             console.error("Creation error:", error); // Add logging
@@ -58,16 +58,16 @@ export class TravelController{
         }
     }
 
-    async getAllTravelsController(req: Request, res: Response){
+    async getAllTravels(req: Request, res: Response){
         try{
-            const travels = await this.repository.getAllTravels();
+            const travels = await this.repository.findAllTravels();
             return res.status(200).json(travels);
         } catch (error){
             return res.status(500).json({error: "Error: Database Operation Failed"});
         }
     }
 
-    async getTravelByNameController(req: Request, res: Response){
+    async getTravelByName(req: Request, res: Response){
         const validation = travelDestinationZodSchema.getTravelByName.safeParse({
             travelName: req.params.travelName,
         });
@@ -77,14 +77,14 @@ export class TravelController{
         }
 
         try{
-            const travel = await this.repository.getTravelByName(validation.data.travelName);
+            const travel = await this.repository.findTravelByName(validation.data.travelName);
             return res.status(200).json(travel);
         }catch (error){
             return res.status(500).json({error: "Error: Database Operation Failed"});
         }
     }
 
-    async getTravelsByDestinationIdController(req: Request, res: Response){
+    async getTravelsByDestinationId(req: Request, res: Response){
         const validation = travelDestinationZodSchema.getTravelsByDestination.safeParse({
             destinationId: req.params.destinationId,
         });
@@ -94,7 +94,7 @@ export class TravelController{
         }
 
         try{
-            const travel = await this.repository.getTravelsByDestinationId(validation.data.destinationId);
+            const travel = await this.repository.findTravelsByDestinationId(validation.data.destinationId);
             return res.status(200).json(travel);
         }catch (error){
             return res.status(500).json({error: "Error: Database Operation Failed"});
