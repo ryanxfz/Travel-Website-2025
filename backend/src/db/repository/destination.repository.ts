@@ -6,7 +6,6 @@ export class DestinationRepository{
     constructor(private readonly database: Database) {}
     
     async insertDestination(data: typeof destination.$inferInsert) {
-        // Use this proper Drizzle ORM insert with returning
         const [newDestination] = await this.database.insert(destination)
             .values(data)
             .returning();

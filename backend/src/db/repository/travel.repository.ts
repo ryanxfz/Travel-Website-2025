@@ -21,7 +21,6 @@ export class TravelRepository {
                 eq(travelDestination.travelId, travelId), inArray(travelDestination.destinationId, destinationIds)
             )
         )
-        
         return result;
     }
 
