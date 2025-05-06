@@ -53,7 +53,6 @@ export class Routes{
 
     //add destination to travel
     
-    //TODO: There's still no return value for this one. It should return the travel with the new destination added.
     this.router.post('/travels/:travelId/:destinations',
       (req,res,next) => {
         this.travelController.addDestination(req,res).catch(next);

@@ -16,7 +16,6 @@ export class TravelController{
             return res.status(400).json({ error: validation.error.errors });
         }
         
-        //call the repo
         try{
             await this.repository.addDestinations(validation.data.travelId, validation.data.destinationId);
             return res.status(204).end();
@@ -58,7 +57,6 @@ export class TravelController{
             });
         }
     }
-
 
     async getAllTravelsController(req: Request, res: Response){
         try{

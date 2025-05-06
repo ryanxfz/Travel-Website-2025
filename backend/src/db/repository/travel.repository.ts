@@ -13,6 +13,16 @@ export class TravelRepository {
                 destinationId,
             }))
         );
+
+        const result = await db.select()
+        .from(travelDestination)
+        .where(
+            and(
+                eq(travelDestination.travelId, travelId), inArray(travelDestination.destinationId, destinationIds)
+            )
+        )
+        
+        return result;
     }
 
     async removeDestinations(travelId: string, destinationIds: string[]) {
