@@ -2,6 +2,8 @@ import { Router } from 'express';
 import { DestinationController } from '../controller/destination.controller';
 import { TravelController } from '../controller/travel.controller';
 
+//the base is http://localhost:4000/api
+
 export class Routes{
   private router: Router;
 

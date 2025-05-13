@@ -1,9 +1,9 @@
-import type {Destination} from '../../types/types';
+import type {Destination, DestinationDTO} from '../../types/types';
 import {Link} from 'react-router-dom';
 import {useState, useEffect} from 'react';
 
 interface DestinationListProperties{
-    destinations: Destination[];
+    destinations: DestinationDTO[];
     onDeleteDestination: (id: string) => Promise<void>;
 }
 
@@ -25,8 +25,8 @@ export function DestinationList({destinations, onDeleteDestination}: Destination
         <div>
             <h2>Destinations</h2>
             <ul>
-                {destinations.map((destination) => (
-                    <li key={destination.id}>
+                {destinations.map((destination, index) => (
+                    <li key={destination.id || index}>
                         <Link to={`/destinations/${destination.id}`}>
                             {destination.name}
                         </Link>

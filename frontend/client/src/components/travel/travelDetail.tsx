@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { getTravelByName } from '../../services/travelService';
+import { getTravelByName } from '../../api/travelApi';
 
 export default function TravelDetail() {
   const { travelName } = useParams();

@@ -2,12 +2,14 @@ import express, { Application } from 'express';
 import { globalErrorHandler } from './utils/global.error';
 import { Routes } from './routes/routes';
 import helmet from 'helmet';
+import cors from 'cors';
 
 export class App {
     public readonly app: Application;
 
     constructor(private readonly routes: Routes){
         this.app = express();
+        this.app.use(cors());
         this.registerMiddlewares();
         this.registerRoutes();
         //this.registerErrorHandlers();

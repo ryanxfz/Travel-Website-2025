@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { DestinationForm } from "../components/destination/destinationForm";
-import { createDestination } from "../services/api";
+import { createDestination } from "../api/destinationApi";
 import type { CreateDestination } from "../types/types";
 //TODO: fix shit here
 export function CreateDestinationPage() {

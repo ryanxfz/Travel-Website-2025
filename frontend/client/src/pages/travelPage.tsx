@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react';
 import TravelList from '../components/travel/travelList';
 import TravelForm from '../components/travel/travelForm';
-import {getTravelData, createTravel } from '../services/travelService';
+import {getTravelData, createTravel } from '../api/travelApi';
 
 export default function TravelPage(){
     const [travels, setTravels] = useState<any[]>([]);
