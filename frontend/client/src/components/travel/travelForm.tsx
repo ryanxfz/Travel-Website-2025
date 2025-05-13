@@ -1,15 +1,33 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { fetchAllDestinations } from '../../api/destinationApi';
+import type { DestinationDTO } from '../../types/types';
 
 export default function TravelForm({ onSubmit, initialData = {} }: any) {
   const [formData, setFormData] = useState({
     name: initialData.name || '',
     description: initialData.description || '',
     timePeriod: initialData.timePeriod || '',
+    destinations: initialData.destinations || [], // Array of selected destination IDs
   });
+
+  const [availableDestinations, setAvailableDestinations] = useState<DestinationDTO[]>([]);
+
+  useEffect(() => {
+    const loadDestinations = async () => {
+      const data = await fetchAllDestinations();
+      setAvailableDestinations(data);
+    };
+    loadDestinations();
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleDestinationChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedOptions = Array.from(e.target.selectedOptions).map((option) => option.value);
+    setFormData((prev) => ({ ...prev, destinations: selectedOptions }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -41,11 +59,26 @@ export default function TravelForm({ onSubmit, initialData = {} }: any) {
         <label>Time Period:</label>
         <input
           type="date"
-          name="startDate"
+          name="timePeriod"
           value={formData.timePeriod}
           onChange={handleChange}
           required
         />
+      </div>
+      <div>
+        <label>Destinations:</label>
+        <select
+          name="destinations"
+          multiple
+          value={formData.destinations}
+          onChange={handleDestinationChange}
+        >
+          {availableDestinations.map((destination) => (
+            <option key={destination.name} value={destination.name}>
+              {destination.name}
+            </option>
+          ))}
+        </select>
       </div>
       <button type="submit">Save</button>
     </form>
