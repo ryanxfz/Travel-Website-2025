@@ -20,6 +20,11 @@ export class DestinationRepository{
         const destinationData = await db.select().from(destination).execute();
         return destinationData;
     }
+
+    async findDestinationByName(destinationName: string){
+        const destinationData = await db.select().from(destination).where(eq(destination.name, destinationName)).execute();
+        return destinationData;
+    }
     
     async findDestinationById(destinationId: string) {
         const destinationData = await db.select().from(destination).where(eq(destination.id, destinationId)).execute();

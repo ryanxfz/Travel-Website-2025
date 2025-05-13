@@ -27,6 +27,11 @@ export class Routes{
         this.destinationController.getAllDestinations(req,res).catch(next);
       });
 
+    this.router.get('/destinations/:destinationName',
+      (req,res,next) => {
+        this.destinationController.getDestinationsByName(req,res).catch(next);
+      });
+
     this.router.get('/destinations/:destinationId',
       (req,res,next) => {
         this.destinationController.getDestinationsById(req,res).catch(next);

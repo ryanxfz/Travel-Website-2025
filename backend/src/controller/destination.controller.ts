@@ -34,7 +34,17 @@ export class DestinationController{
             await this.repository.removeDestination(validation.data.destinationId);
             return res.status(204).json({message: "Deletion Succesful"});
         } catch (error){
-            return res.status(500).json({error: "Error: Database Operation Failed"});
+            return res.status(500).json({error: "Error: Database Operation Failed (Delete Destination)"});
+        }
+    }
+
+    async getDestinationsByName(req: Request, res: Response){
+        const name = req.params.destinationName;
+        try{
+            const destinations = await this.repository.findDestinationByName(name);
+            return res.status(200).json(destinations);
+        } catch (error){
+            return res.status(500).json({error: "Error: Database Operation Failed (Get By Name)"});
         }
     }
 
@@ -44,7 +54,7 @@ export class DestinationController{
             const destinations = await this.repository.findDestinationById(id);
             return res.status(200).json(destinations);
         } catch (error){
-            return res.status(500).json({error: "Error: Database Operation Failed"});
+            return res.status(500).json({error: "Error: Database Operation Failed (Get By ID)"});
         }
     }
 
@@ -53,7 +63,7 @@ export class DestinationController{
             const destinations = await this.repository.findAllDestinations();
             return res.status(200).json(destinations);
         } catch (error){
-            return res.status(500).json({error: "Error: Database Operation Failed"});
+            return res.status(500).json({error: "Error: Database Operation Failed (Get All Destinations)"});
         }
     }
 
