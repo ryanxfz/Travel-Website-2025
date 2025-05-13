@@ -20,8 +20,13 @@ export async function fetchDestinationById(id: string): Promise<DestinationDTO[]
     return response.json();
 }
 
-//TODO: add fetchDestinationByName in BACKEND, then write the function here for the frontend
-// export async function fetchDestinationByName(name: string): Promise<DestinationDTO[]> {
+export async function fetchDestinationByName(name: string): Promise<DestinationDTO[]> {
+    const response = await fetch(`${API_BASE_URL}/api/destinations/name/${name}`);
+    if (!response.ok) {
+        throw new Error('Failed to fetch destination by name');
+    }
+    return response.json();
+}
 
 export async function deleteDestination(id: string): Promise<void> {
     const response = await fetch(`${API_BASE_URL}/api/destinations/${id}`, {
