@@ -13,7 +13,7 @@ export async function fetchAllDestinations(): Promise<DestinationDTO[]> {
 }
 
 export async function fetchDestinationById(id: string): Promise<DestinationDTO[]>{
-    const response = await fetch(`/api/destinations/${id}`);
+    const response = await fetch(`${API_BASE_URL}/api/destinations/${id}`);
     if (!response.ok) {
         throw new Error('Failed to fetch destination by ID');
     }
@@ -24,7 +24,7 @@ export async function fetchDestinationById(id: string): Promise<DestinationDTO[]
 // export async function fetchDestinationByName(name: string): Promise<DestinationDTO[]> {
 
 export async function deleteDestination(id: string): Promise<void> {
-    const response = await fetch(`/api/destinations/${id}`, {
+    const response = await fetch(`${API_BASE_URL}/api/destinations/${id}`, {
         method: 'DELETE',
     });
     if (!response.ok) {
@@ -33,7 +33,7 @@ export async function deleteDestination(id: string): Promise<void> {
 }
 
 export async function postDestination(data: DestinationDTO): Promise<Destination>{
-    const response = await fetch(`/api/destinations`, {
+    const response = await fetch(`${API_BASE_URL}/api/destinations`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

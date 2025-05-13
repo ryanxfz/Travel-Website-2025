@@ -1,21 +1,22 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { DestinationForm } from "../components/destination/destinationForm";
-import { createDestination } from "../api/destinationApi";
-import type { CreateDestination } from "../types/types";
+import { postDestination } from "../api/destinationApi";
+import type { DestinationDTO } from "../types/types";
 //TODO: fix shit here
 export function CreateDestinationPage() {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleCreateDestination = async (destination: CreateDestination) => {
+  const handleCreateDestination = async (destination: DestinationDTO) => {
     setIsLoading(true);
     setError(null);
 
     try {
-      await createDestination(destination);
-      navigate("/destinations");
+      await postDestination(destination);
+      navigate("/api/destinations");
+      console.log("Destination created");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to create destination");
     } finally {

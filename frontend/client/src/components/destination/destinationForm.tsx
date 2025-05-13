@@ -1,14 +1,14 @@
 import {useState} from 'react';
-import type {CreateDestination} from '../../types/types';
+import type {DestinationDTO} from '../../types/types';
 
 interface DestinationFormProperties {
-  initialData?: CreateDestination;
-  onSubmit: (data: CreateDestination) => Promise<void>;
+  initialData?: DestinationDTO;
+  onSubmit: (data: DestinationDTO) => Promise<void>;
   isLoading: boolean;
 }
 
 export function DestinationForm({ initialData, onSubmit, isLoading }: DestinationFormProperties) {
-  const [formData, setFormData] = useState<CreateDestination>(initialData || {
+  const [formData, setFormData] = useState<DestinationDTO>(initialData || {
     name: '',
     description: '',
     timePeriod: new Date(),
@@ -18,7 +18,9 @@ export function DestinationForm({ initialData, onSubmit, isLoading }: Destinatio
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ 
+      ...prev, 
+      [name]: name === 'timePeriod' ? new Date(value) : value}));//date data type
   };
 
   const handleSubmit = async (e: React.FormEvent) => {

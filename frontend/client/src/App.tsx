@@ -5,6 +5,7 @@ import TravelPage from './pages/travelPage'
 import { DestinationsPage } from './pages/destinationPage'
 //import Navbar from './components/Navbar'
 import './App.css'
+import { CreateDestinationPage } from './pages/createDestinationPage';
 
 function App(){
   // const testConnection = async () => {
@@ -32,7 +33,7 @@ function App(){
       <div className="min-h-screen bg-gray-50 p-6">
         <Routes>
           <Route path="/api/destinations" element={<DestinationsPage />} />
-          {/*<Route path="/destinations/new" element={<CreateDestinationPage />} />*/}
+          <Route path="/api/destinations/new" element={<CreateDestinationPage />} />
         </Routes>
       </div>
     </BrowserRouter>
