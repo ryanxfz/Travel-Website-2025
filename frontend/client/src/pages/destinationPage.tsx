@@ -33,7 +33,7 @@ export function DestinationsPage() {
           <div className="flex justify-between items-center">
             <h1 className="text-2xl font-bold">Destinations</h1>
             <Link
-              to="/api/destinations/new"
+              to="/destinations/new"
               className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
               Add Destination
@@ -44,6 +44,7 @@ export function DestinationsPage() {
               <li key={index} className="border p-4 rounded-md shadow">
                 <h2 className="text-lg font-semibold">{destination.name}</h2>
                 <p>{destination.description}</p>
+                <p>{destination.timePeriod.toString()}</p>
               </li>
             ))}
           </ul>

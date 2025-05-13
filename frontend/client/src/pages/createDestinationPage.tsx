@@ -15,7 +15,7 @@ export function CreateDestinationPage() {
 
     try {
       await postDestination(destination);
-      navigate("/api/destinations");
+      navigate("/destinations");
       console.log("Destination created");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to create destination");

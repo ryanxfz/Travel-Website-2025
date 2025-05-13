@@ -1,4 +1,3 @@
-import axios from 'axios';
 import type { Travel, TravelDTO } from '../types/types';
 
 const API_URL = 'http://localhost:4000/api/travel';

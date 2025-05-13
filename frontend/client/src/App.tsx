@@ -32,8 +32,8 @@ function App(){
     <BrowserRouter>
       <div className="min-h-screen bg-gray-50 p-6">
         <Routes>
-          <Route path="/api/destinations" element={<DestinationsPage />} />
-          <Route path="/api/destinations/new" element={<CreateDestinationPage />} />
+          <Route path="/destinations" element={<DestinationsPage />} />
+          <Route path="/destinations/new" element={<CreateDestinationPage />} />
         </Routes>
       </div>
     </BrowserRouter>

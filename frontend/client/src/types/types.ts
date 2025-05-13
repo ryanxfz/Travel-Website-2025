@@ -2,7 +2,7 @@ export interface TravelDTO{
     name: string;
     description: string;
     timePeriod: Date;
-    destinations: string[]; // Array of destination IDs or objects
+    destinations: string[];
 }
 
 export interface Travel extends TravelDTO{
@@ -24,11 +24,3 @@ export interface Destination extends DestinationDTO{
     createdAt: string;
     updatedAt: string;
 }
-
-// export interface CreateDestination{
-//     name: string;
-//     description: string;
-//     timePeriod: Date; //maybe string, maybe date, we'll see.
-//     activity: string;
-//     images: string;
-// }
