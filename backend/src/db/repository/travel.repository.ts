@@ -34,6 +34,10 @@ export class TravelRepository {
         );
     }
 
+    async removeTravel(travelId: string){
+        await db.delete(travel).where(eq(travel.id, travelId));
+    }
+
     async findTravelsByDestinationId(destinationId: string) {
         return await db.select()
       .from(travel)

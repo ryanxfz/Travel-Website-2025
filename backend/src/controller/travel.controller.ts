@@ -24,6 +24,23 @@ export class TravelController{
         }
     }
 
+    async deleteTravel(req: Request, res: Response){
+        const validation = travelDestinationZodSchema.deleteTravel.safeParse({
+            travelId: req.params.travelId,
+        });
+
+        if(!validation.success) {
+            return res.status(400).json({ error: validation.error.errors });
+        }
+
+        try{
+            await this.repository.removeTravel(validation.data.travelId);
+            return res.status(204).end();
+        } catch (error){
+            return res.status(500).json({error: "Error: Database Operation Failed"});
+        }
+    }
+
     async deleteDestination(req: Request, res: Response){
         const validation = travelDestinationZodSchema.removeDestination.safeParse({
             travelId: req.params.travelId,

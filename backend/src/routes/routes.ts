@@ -46,20 +46,20 @@ export class Routes{
       (req,res,next) => {
         this.destinationController.deleteDestination(req,res).catch(next);
       });
-
+    //-----------------Travel routes-------------------
     //all travels
     this.router.get('/travels',
       (req,res,next) => {
         this.travelController.getAllTravels(req,res).catch(next);
     });
 
+    //post travel
     this.router.post('/travels',
       (req,res,next) => {
         this.travelController.postTravel(req,res).catch(next);
       })
 
     //add destination to travel
-    
     this.router.post('/travels/:travelId/:destinations',
       (req,res,next) => {
         this.travelController.postDestination(req,res).catch(next);
@@ -70,6 +70,12 @@ export class Routes{
       (req,res,next) => {
         this.travelController.deleteDestination(req,res).catch(next);
     }); 
+
+    //delete travel
+    this.router.delete('/travels/:travelId',
+      (req,res,next) => {
+        this.travelController.deleteTravel(req,res).catch(next);
+    });
 
     //get travel by name
     this.router.get('/travels/name/:travelName',

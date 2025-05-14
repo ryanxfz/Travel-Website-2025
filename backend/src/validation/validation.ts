@@ -41,7 +41,11 @@ export const travelDestinationZodSchema = {
         timePeriod: z.string().min(1),
         images: z.string().min(1),
         participants: z.string().min(1)
-    })
+    }),
+
+    deleteTravel: z.object({
+        travelId: uuidSchema,
+    }),
 }
 
 export type createDestination = z.infer<typeof createDestinationZodSchema>;

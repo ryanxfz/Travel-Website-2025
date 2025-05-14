@@ -1,11 +1,9 @@
 import type { Travel, TravelDTO } from '../types/types';
 
-const API_URL = 'http://localhost:4000/api/travel';
-
-//TODO: create wrapper to handle errors and responses
+const API_BASE_URL = 'http://localhost:4000';
 
 export async function fetchAllTravels(): Promise<TravelDTO[]>{
-    const response = await fetch(`${API_URL}/api/travels`);
+    const response = await fetch(`${API_BASE_URL}/api/travels`);
     if (!response.ok) {
         throw new Error('Failed to fetch travels');
     }
@@ -13,7 +11,7 @@ export async function fetchAllTravels(): Promise<TravelDTO[]>{
 }
 
 export async function fetchTravelByName(name: string): Promise<TravelDTO[]>{
-    const response = await fetch(`${API_URL}/api/travels/${name}`);
+    const response = await fetch(`${API_BASE_URL}/api/travels/name/${name}`);
     if (!response.ok) {
         throw new Error('Failed to fetch travel by name');
     }
@@ -21,7 +19,7 @@ export async function fetchTravelByName(name: string): Promise<TravelDTO[]>{
 }
 
 export async function postTravel(data: TravelDTO):Promise<Travel>{
-    const response = await fetch(`${API_URL}/api/travels`, {
+    const response = await fetch(`${API_BASE_URL}/api/travels`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -35,7 +33,7 @@ export async function postTravel(data: TravelDTO):Promise<Travel>{
 }
 
 export async function deleteTravel(id: string): Promise<void>{
-    const response = await fetch(`${API_URL}/api/travels/${id}`, {
+    const response = await fetch(`${API_BASE_URL}/api/travels/${id}`, {
         method: 'DELETE',
     });
     if (!response.ok) {
@@ -44,7 +42,7 @@ export async function deleteTravel(id: string): Promise<void>{
 }
 
 export async function addDestinationToTravel(travelId: string, destinationIds: string): Promise<void>{
-    const response = await fetch(`${API_URL}/api/travels/${travelId}/:destinations`, {
+    const response = await fetch(`${API_BASE_URL}/api/travels/${travelId}/:destinations`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -57,7 +55,7 @@ export async function addDestinationToTravel(travelId: string, destinationIds: s
 }
 
 export async function fetchTravelByDestinationId(destinationId: string): Promise<TravelDTO[]>{
-    const response = await fetch(`${API_URL}/api/travels/destination/${destinationId}`);
+    const response = await fetch(`${API_BASE_URL}/api/travels/destination/${destinationId}`);
     if (!response.ok) {
         throw new Error('Failed to fetch travel by destination ID');
     }
@@ -65,7 +63,7 @@ export async function fetchTravelByDestinationId(destinationId: string): Promise
 }
 
 export async function removeDestinationFromTravel(travelId: string, destinationIds: string): Promise<void>{
-    const response = await fetch(`${API_URL}/api/travels/${travelId}/destinations`, {
+    const response = await fetch(`${API_BASE_URL}/api/travels/${travelId}/destinations`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
@@ -76,61 +74,3 @@ export async function removeDestinationFromTravel(travelId: string, destinationI
         throw new Error('Failed to remove destination from travel');
     }
 }
-// export const getTravelData = async () => {
-//   try {
-//     const response = await axios.get(API_URL);
-//     return response.data;
-//   } catch (error) {
-//     console.error('Error fetching travel data:', error);
-//     throw error;
-//   }
-// };
-
-// export const getTravelByName = async (name: string) => {
-//   try {
-//     const response = await axios.get(`${API_URL}/name/${name}`);
-//     return response.data;
-//   } catch (error) {
-//     console.error('Error fetching travel by name:', error);
-//     throw error;
-//   }
-// }
-
-// export const createTravel = async (travelData: any) => {
-//     try {
-//         const response = await axios.post(API_URL, travelData);
-//         return response.data;
-//     } catch (error) {
-//         console.error('Error creating travel:', error);
-//         throw error;
-//     }
-// }
-
-// export const addDestinationToTravel = async (travelId: string, destinationIds: string) => {
-//     try {
-//       const response = await axios.post(`${API_URL}/${travelId}/destinations`, { destinationId: destinationIds });
-//       return response.data;
-//     } catch (error) {
-//         console.error('Error adding destination to travel:', error);
-//         throw error;
-//     }
-// }
-
-// export const removeDestinationFromTravel = async (travelId: string, destinationIds: string) => {
-//     try {
-//       await axios.delete(`${API_URL}/${travelId}/destinations`, { data: { destinationId: destinationIds } });
-//     } catch (error) {
-//         console.error('Error removing destination from travel:', error);
-//         throw error;
-//     }
-// }
-
-// export const deleteTravel = async (travelId: string) => {
-//     try {
-//         const response = await axios.delete(`${API_URL}/delete/${travelId}`);
-//         return response.data;
-//     } catch (error) {
-//         console.error('Error deleting travel:', error);
-//         throw error;
-//     }
-// }
