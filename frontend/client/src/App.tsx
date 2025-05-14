@@ -34,6 +34,7 @@ function App(){
         <Routes>
           <Route path="/destinations" element={<DestinationsPage />} />
           <Route path="/destinations/new" element={<CreateDestinationPage />} />
+          <Route path="/travels" element={<TravelPage />} />
         </Routes>
       </div>
     </BrowserRouter>
