@@ -6,6 +6,7 @@ import { DestinationsPage } from './pages/destinationPage'
 //import Navbar from './components/Navbar'
 import './App.css'
 import { CreateDestinationPage } from './pages/createDestinationPage';
+import TravelForm from './components/travel/travelForm';
 
 function App(){
   // const testConnection = async () => {
@@ -35,6 +36,7 @@ function App(){
           <Route path="/destinations" element={<DestinationsPage />} />
           <Route path="/destinations/new" element={<CreateDestinationPage />} />
           <Route path="/travels" element={<TravelPage />} />
+          <Route path="/travels/new" element={<TravelForm />} />
         </Routes>
       </div>
     </BrowserRouter>

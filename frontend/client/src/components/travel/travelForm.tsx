@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { fetchAllDestinations } from '../../api/destinationApi';
-import type { DestinationDTO } from '../../types/types';
+import type { Destination } from '../../types/types';
 
 export default function TravelForm({ onSubmit, initialData = {} }: any) {
   const [formData, setFormData] = useState({
@@ -10,12 +10,19 @@ export default function TravelForm({ onSubmit, initialData = {} }: any) {
     destinations: initialData.destinations || [], // Array of selected destination IDs
   });
 
-  const [availableDestinations, setAvailableDestinations] = useState<DestinationDTO[]>([]);
+  const [availableDestinations, setAvailableDestinations] = useState<Destination[]>([]);
 
   useEffect(() => {
     const loadDestinations = async () => {
       const data = await fetchAllDestinations();
-      setAvailableDestinations(data);
+      // Map DestinationDTO to Destination by adding missing properties
+      const destinations: Destination[] = data.map((dto: any) => ({
+        ...dto,
+        id: dto.id ?? '', // Provide a fallback if id is missing
+        createdAt: dto.createdAt ?? '',
+        updatedAt: dto.updatedAt ?? '',
+      }));
+      setAvailableDestinations(destinations);
     };
     loadDestinations();
   }, []);
@@ -74,7 +81,7 @@ export default function TravelForm({ onSubmit, initialData = {} }: any) {
           onChange={handleDestinationChange}
         >
           {availableDestinations.map((destination) => (
-            <option key={destination.name} value={destination.name}>
+            <option key={destination.name} value={destination.id}>
               {destination.name}
             </option>
           ))}

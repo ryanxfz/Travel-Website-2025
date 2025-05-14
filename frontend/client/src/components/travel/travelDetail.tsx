@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { getTravelByName } from '../../api/travelApi';
+import { fetchTravelByName } from '../../api/travelApi';
 
 export default function TravelDetail() {
   const { travelName } = useParams();
@@ -10,7 +10,7 @@ export default function TravelDetail() {
   useEffect(() => {
     const fetchTravel = async () => {
       if (travelName) {
-        const data = await getTravelByName(travelName);
+        const data = await fetchTravelByName(travelName);
         setTravel(data[0]);
         setLoading(false);
       }
@@ -25,8 +25,7 @@ export default function TravelDetail() {
     <div className="travel-detail">
       <h1>{travel.name}</h1>
       <p>Description: {travel.description}</p>
-      <p>Start Date: {new Date(travel.startDate).toLocaleDateString()}</p>
-      <p>End Date: {new Date(travel.endDate).toLocaleDateString()}</p>
+      <p>Travel Date: {new Date(travel.timePeriod).toLocaleDateString()}</p>
       
       <h2>Destinations</h2>
       <div className="destinations-list">
