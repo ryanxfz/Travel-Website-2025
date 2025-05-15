@@ -49,7 +49,7 @@ export class TravelController{
         }
 
         try{
-            const travel = await this.repository.findTravelByName(validation.data.travelId);
+            const travel = await this.repository.findTravelById(validation.data.travelId);
             return res.status(200).json(travel);
         }catch (error){
             return res.status(500).json({error: "Error: Database Operation Failed"});

@@ -1,40 +1,19 @@
-import { useState, useEffect } from 'react';
-import { fetchAllDestinations } from '../../api/destinationApi';
-import type { Destination } from '../../types/types';
+import { useState } from 'react';
 
 export default function TravelForm({ onSubmit, initialData = {} }: any) {
   const [formData, setFormData] = useState({
     name: initialData.name || '',
     description: initialData.description || '',
     timePeriod: initialData.timePeriod || '',
-    destinations: initialData.destinations || [], // Array of selected destination IDs
+    participants: initialData.participants || '',
+    images: initialData.images || '',
   });
 
-  const [availableDestinations, setAvailableDestinations] = useState<Destination[]>([]);
-
-  useEffect(() => {
-    const loadDestinations = async () => {
-      const data = await fetchAllDestinations();
-      // Map DestinationDTO to Destination by adding missing properties
-      const destinations: Destination[] = data.map((dto: any) => ({
-        ...dto,
-        id: dto.id ?? '', // Provide a fallback if id is missing
-        createdAt: dto.createdAt ?? '',
-        updatedAt: dto.updatedAt ?? '',
-      }));
-      setAvailableDestinations(destinations);
-    };
-    loadDestinations();
-  }, []);
+  // You can remove availableDestinations and related code if not used
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleDestinationChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedOptions = Array.from(e.target.selectedOptions).map((option) => option.value);
-    setFormData((prev) => ({ ...prev, destinations: selectedOptions }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -73,19 +52,24 @@ export default function TravelForm({ onSubmit, initialData = {} }: any) {
         />
       </div>
       <div>
-        <label>Destinations:</label>
-        <select
-          name="destinations"
-          multiple
-          value={formData.destinations}
-          onChange={handleDestinationChange}
-        >
-          {availableDestinations.map((destination) => (
-            <option key={destination.name} value={destination.id}>
-              {destination.name}
-            </option>
-          ))}
-        </select>
+        <label>Images:</label>
+        <input
+          type="text"
+          name="images"
+          value={formData.images}
+          onChange={handleChange}
+          required
+        />
+      </div>
+      <div>
+        <label>Participants:</label>
+        <input
+          type="text"
+          name="participants"
+          value={formData.participants}
+          onChange={handleChange}
+          required
+        />
       </div>
       <button type="submit">Save</button>
     </form>

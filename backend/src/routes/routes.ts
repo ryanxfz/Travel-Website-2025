@@ -22,7 +22,7 @@ export class Routes{
     this.router.get('/', (req,res) => {
       res.status(200).json({message: 'Travel app is running'});
     });
-
+    
     //------------------DESTINATION ROUTES----------------
     this.router.get('/destinations', 
       (req,res,next) => {

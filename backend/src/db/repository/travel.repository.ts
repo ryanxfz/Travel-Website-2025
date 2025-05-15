@@ -14,6 +14,11 @@ export class TravelRepository {
         return await db.select().from(travel).execute();
     }
 
+    async findTravelById(travelId: string){
+       const travelData = await db.select().from(travel).where(eq(travel.id, travelId));
+       return travelData[0];
+    }
+
     async findTravelByName(travelName: string) {
         return await db.select().from(travel).where(eq(travel.name, travelName)).execute();
     }

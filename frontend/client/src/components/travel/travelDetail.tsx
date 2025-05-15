@@ -1,33 +1,43 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { fetchTravelByName } from '../../api/travelApi';
+import { fetchTravelById } from '../../api/travelApi';
 
 export default function TravelDetail() {
-  const { travelName } = useParams();
+  const { travelId } = useParams();
   const [travel, setTravel] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchTravel = async () => {
-      if (travelName) {
-        const data = await fetchTravelByName(travelName);
-        setTravel(data[0]);
+      if (travelId) {
+        const data = await fetchTravelById(travelId);
+        setTravel(data);
         setLoading(false);
       }
     };
     fetchTravel();
-  }, [travelName]);
+  }, [travelId]);
 
   if (loading) return <div>Loading...</div>;
   if (!travel) return <div>Travel not found</div>;
 
+  let formattedDate = "N/A";
+  if (travel.timePeriod) {
+    const dateObj = new Date(travel.timePeriod);
+    formattedDate = isNaN(dateObj.getTime())
+      ? "Invalid Date"
+      : dateObj.toLocaleDateString();
+  }
+
+
   return (
     <div className="travel-detail">
       <h1>{travel.name}</h1>
+      <h2>Destinations</h2>
       <p>Description: {travel.description}</p>
       <p>Travel Date: {new Date(travel.timePeriod).toLocaleDateString()}</p>
       
-      <h2>Destinations</h2>
+
       <div className="destinations-list">
         {/* Render destinations here */}
       </div>

@@ -74,3 +74,11 @@ export async function removeDestinationFromTravel(travelId: string, destinationI
         throw new Error('Failed to remove destination from travel');
     }
 }
+
+export async function fetchTravelById(travelId: string){
+    const response = await fetch(`${API_BASE_URL}/api/travels/${travelId}`);
+    if (!response.ok) {
+        throw new Error('Failed to fetch travel by ID');
+    }
+    return response.json();
+}
