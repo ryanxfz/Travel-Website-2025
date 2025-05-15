@@ -12,8 +12,16 @@ export default function TravelList({ travels, onDelete }: any) {
             <TravelCard travel={travel} />
           </Link>
           <div className="travel-actions">
-            <button onClick={() => navigate(`/travels/${travel.id}`)}>Edit</button>
-            <button onClick={() => onDelete(travel.id)}>Delete</button>
+            <button onClick={() => navigate(`/travels/${travel.id}`)}>See Travel Details</button>
+            <button
+              onClick={async () => {
+                if (window.confirm('Are you sure you want to delete this travel?')) {
+                  await onDelete(travel.id);
+                }
+              }}
+              >
+              Delete Travel
+            </button>
           </div>
         </div>
       ))}

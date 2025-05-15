@@ -41,8 +41,8 @@ export async function deleteTravel(id: string): Promise<void>{
     }
 }
 
-export async function addDestinationToTravel(travelId: string, destinationIds: string): Promise<void>{
-    const response = await fetch(`${API_BASE_URL}/api/travels/${travelId}/:destinations`, {
+export async function addDestinationToTravel(travelId: string, destinationIds: string[]): Promise<void>{
+    const response = await fetch(`${API_BASE_URL}/api/travels/${travelId}/destinations`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

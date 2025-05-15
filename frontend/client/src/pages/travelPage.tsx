@@ -1,12 +1,13 @@
 import {useState, useEffect} from 'react';
 import TravelList from '../components/travel/travelList';
 import TravelForm from '../components/travel/travelForm';
-import {fetchAllTravels, postTravel } from '../api/travelApi';
+import {deleteTravel, fetchAllTravels, postTravel, fetchTravelByName } from '../api/travelApi';
+//change the import to *
 
 export default function TravelPage(){
     const [travels, setTravels] = useState<any[]>([]);
     const [showForm, setShowForm] = useState(false);
-
+    
     useEffect(() => {
         fetchTravels()
     }, []);
@@ -14,6 +15,12 @@ export default function TravelPage(){
     const fetchTravels = async () => {
         const data = await fetchAllTravels();
         setTravels(data);
+    }
+
+    const handleDeleteTravel = async (id:string) => {
+      await deleteTravel(id);
+      fetchTravels();
+
     }
 
     const handleCreateTravel = async (formData: any) => {
@@ -32,7 +39,7 @@ export default function TravelPage(){
           
           <TravelList 
             travels={travels} 
-            onDelete={() => {}} 
+            onDelete={handleDeleteTravel}
             onEdit={() => {}} 
           />
         </div>
