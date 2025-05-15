@@ -41,23 +41,23 @@ export default function TravelDetail() {
       
 
       <div className="destinations-list">
-      <p>Your destinations</p>
-      {travel.destinations && travel.destinations.length > 0 ? (
-        <ul>
-          {travel.destinations.map((dest: any) => (
-            <li key={dest.id} style={{ marginBottom: '1em', border: '1px solid #ccc', padding: '1em' }}>
-              <strong>Name:</strong> {dest.name} <br />
-              <strong>Description:</strong> {dest.description} <br />
-              <strong>Time Period:</strong> {dest.timePeriod} <br />
-              <strong>Activity:</strong> {dest.activity} <br />
-              <strong>Images:</strong> {dest.images} <br />
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>No destinations yet.</p>
-      )}
-    </div>
+        <p>Your destinations</p>
+        <div className="destination-list-container">
+          {travel.destinations && travel.destinations.length > 0 ? (
+            travel.destinations.map((dest: any) => (
+              <div key={dest.id} className="destination-card">
+                <strong>Name:</strong> {dest.name} <br />
+                <strong>Description:</strong> {dest.description} <br />
+                <strong>Time Period:</strong> {dest.timePeriod} <br />
+                <strong>Activity:</strong> {dest.activity} <br />
+                <strong>Images:</strong> {dest.images} <br />
+              </div>
+            ))
+          ) : (
+            <p>No destinations yet.</p>
+          )}
+        </div>
+      </div>
 
       <button
         onClick={() => navigate(`/destinations/new?travelId=${travelId}`)}>Add Destinations

@@ -1,16 +1,15 @@
 import { Link, useNavigate } from 'react-router-dom';
 import TravelCard from './travelCard';
+import './travel.css';
 
 export default function TravelList({ travels, onDelete }: any) {
   const navigate = useNavigate();
 
   return (
-    <div className="travel-list">
+    <div className="travel-list-container">
       {travels.map((travel: any) => (
         <div key={travel.id} className="travel-item">
-          <Link to={`/travels/${travel.id}`}>
-            <TravelCard travel={travel} />
-          </Link>
+          <TravelCard travel={travel} />
           <div className="travel-actions">
             <button onClick={() => navigate(`/travels/${travel.id}`)}>See Travel Details</button>
             <button
@@ -19,7 +18,7 @@ export default function TravelList({ travels, onDelete }: any) {
                   await onDelete(travel.id);
                 }
               }}
-              >
+            >
               Delete Travel
             </button>
           </div>

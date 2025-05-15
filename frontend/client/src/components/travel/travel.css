@@ -1,0 +1,48 @@
+/* Add to App.css or index.css */
+.travel-list-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: flex-start;
+  align-items: stretch;
+  margin-top: 2rem;
+}
+
+.travel-item {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  padding: 1.5rem;
+  min-width: 280px;
+  max-width: 350px;
+  flex: 1 1 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.travel-actions {
+  margin-top: 1rem;
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}
+
+.destination-list-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.destination-card {
+  background: #fff;
+  color: #222; /*text color*/
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  padding: 1.2rem;
+  min-width: 240px;
+  max-width: 320px;
+  flex: 1 1 260px;
+  margin-bottom: 1rem;
+}

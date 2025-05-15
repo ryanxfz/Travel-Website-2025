@@ -12,8 +12,31 @@ export class TravelRepository {
     }
 
     async findAllTravels() {
-        return await db.select().from(travel).execute();
-    }
+    const travels = await db.select().from(travel).execute();
+
+    // For each travel, fetch its destinations
+    const travelsWithDestinations = await Promise.all(
+        travels.map(async (t) => {
+            const destinationLinks = await db.select()
+                .from(travelDestination)
+                .where(eq(travelDestination.travelId, t.id))
+                .execute();
+
+            const destinationIds = destinationLinks.map(link => link.destinationId);
+
+            let destinations: any[] = [];
+            if (destinationIds.length > 0) {
+                destinations = await db.select()
+                    .from(destination)
+                    .where(inArray(destination.id, destinationIds))
+                    .execute();
+            }
+            return { ...t, destinations };
+        })
+    );
+
+    return travelsWithDestinations;
+}
 
     async findTravelById(travelId: string) {
     // Fetch the travel
