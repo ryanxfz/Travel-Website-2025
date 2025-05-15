@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { fetchTravelById } from '../../api/travelApi';
 
 export default function TravelDetail() {
+
+  const navigate = useNavigate();
   const { travelId } = useParams();
   const [travel, setTravel] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -41,8 +43,9 @@ export default function TravelDetail() {
       <div className="destinations-list">
         {/* Render destinations here */}
       </div>
-      
-      <button onClick={() => {/* Edit logic */}}>Edit</button>
+      <button
+        onClick={() => navigate(`/destinations/new?travelId=${travelId}`)}>Add Destinations
+      </button>
       <button onClick={() => {/* Delete logic */}}>Delete</button>
     </div>
   );
