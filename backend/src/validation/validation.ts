@@ -46,6 +46,10 @@ export const travelDestinationZodSchema = {
     deleteTravel: z.object({
         travelId: uuidSchema,
     }),
+
+    getTravelById: z.object({
+        travelId: uuidSchema,
+    }),
 }
 
 export type createDestination = z.infer<typeof createDestinationZodSchema>;

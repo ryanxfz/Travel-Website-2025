@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { DestinationController } from '../controller/destination.controller';
 import { TravelController } from '../controller/travel.controller';
+import { TravelToDestinationController } from '../controller/travel_to_destination.controller';
 
 //the base is http://localhost:4000/api
 
@@ -10,6 +11,7 @@ export class Routes{
   constructor(
     private readonly destinationController: DestinationController,
     private readonly travelController: TravelController,
+    private readonly travelToDestinationController: TravelToDestinationController
   ){
     this.router = Router();
     this.initializeRoutes();
@@ -21,7 +23,7 @@ export class Routes{
       res.status(200).json({message: 'Travel app is running'});
     });
 
-    //destination routes
+    //------------------DESTINATION ROUTES----------------
     this.router.get('/destinations', 
       (req,res,next) => {
         this.destinationController.getAllDestinations(req,res).catch(next);
@@ -46,7 +48,7 @@ export class Routes{
       (req,res,next) => {
         this.destinationController.deleteDestination(req,res).catch(next);
       });
-    //-----------------Travel routes-------------------
+    //-----------------TRAVEL ROUTES-------------------
     //all travels
     this.router.get('/travels',
       (req,res,next) => {
@@ -60,16 +62,22 @@ export class Routes{
       })
 
     //add destination to travel
-    this.router.post('/travels/:travelId/:destinations',
+    this.router.post('/travels/:travelId/destinations',
       (req,res,next) => {
-        this.travelController.postDestination(req,res).catch(next);
+        this.travelToDestinationController.postDestination(req,res).catch(next);
     });
 
     //remove destination from travel
     this.router.delete('/travels/:travelId/destinations',
       (req,res,next) => {
-        this.travelController.deleteDestination(req,res).catch(next);
+        this.travelToDestinationController.deleteDestination(req,res).catch(next);
     }); 
+
+    //get travel by id
+    this.router.get('/travels/:travelId',
+      (req,res,next) => {
+        this.travelController.getTravelById(req,res).catch(next);
+    });
 
     //delete travel
     this.router.delete('/travels/:travelId',
@@ -86,7 +94,7 @@ export class Routes{
     //all travels that has a specific destination
     this.router.get('/travels/destination/:destinationId',
       (req,res,next) => {
-        this.travelController.getTravelsByDestinationId(req,res).catch(next);
+        this.travelToDestinationController.getTravelsByDestinationId(req,res).catch(next);
     });
   }
 

@@ -5,48 +5,9 @@ import { travel } from '../schema/travel.schema';
 
 export class TravelRepository {
     constructor(private readonly database: Database) {}
-    
-    async insertDestinations(travelId: string, destinationIds: string[]){
-        await db.insert(travelDestination).values(
-            destinationIds.map(destinationId => ({
-                travelId,
-                destinationId,
-            }))
-        );
-
-        const result = await db.select()
-        .from(travelDestination)
-        .where(
-            and(
-                eq(travelDestination.travelId, travelId), inArray(travelDestination.destinationId, destinationIds)
-            )
-        )
-        return result;
-    }
-
-    async removeDestinations(travelId: string, destinationIds: string[]) {
-        await db.delete(travelDestination)
-          .where(
-            and(
-              eq(travelDestination.travelId, travelId),
-              inArray(travelDestination.destinationId, destinationIds)
-            )
-        );
-    }
 
     async removeTravel(travelId: string){
         await db.delete(travel).where(eq(travel.id, travelId));
-    }
-
-    async findTravelsByDestinationId(destinationId: string) {
-        return await db.select()
-      .from(travel)
-      .innerJoin(
-        travelDestination,
-        eq(travel.id, travelDestination.travelId)
-      )
-      .where(eq(travelDestination.destinationId, destinationId))
-      .execute();
     }
 
     async findAllTravels() {
