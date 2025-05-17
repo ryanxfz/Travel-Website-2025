@@ -7,6 +7,7 @@ export function DestinationsPage() {
   const [destinations, setDestinations] = useState<DestinationDTO[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
     async function loadDestinations() {
@@ -21,6 +22,11 @@ export function DestinationsPage() {
     }
     loadDestinations();
   }, []);
+
+  // Filter destinations based on search input (case-insensitive)
+  const filteredDestinations = destinations.filter(destination =>
+    destination.name.toLowerCase().includes(search.toLowerCase())
+  );
 
   return (
     <div className="space-y-6">
@@ -39,14 +45,27 @@ export function DestinationsPage() {
               Add Destination
             </Link>
           </div>
+          <div className="flex items-center gap-2 mb-2">
+            <span className="font-medium">Search Destinations:</span>
+            <input
+              type="text"
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              placeholder="Type to search..."
+              className="border rounded px-2 py-1"
+            />
+          </div>
           <ul className="space-y-4">
-            {destinations.map((destination, index) => (
+            {filteredDestinations.map((destination, index) => (
               <li key={index} className="border p-4 rounded-md shadow">
                 <h2 className="text-lg font-semibold">{destination.name}</h2>
                 <p>{destination.description}</p>
                 <p>{destination.timePeriod.toString()}</p>
               </li>
             ))}
+            {filteredDestinations.length === 0 && (
+              <li className="text-gray-500">No destinations found.</li>
+            )}
           </ul>
         </>
       )}

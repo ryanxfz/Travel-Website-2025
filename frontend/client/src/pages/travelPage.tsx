@@ -1,15 +1,13 @@
 import {useState, useEffect} from 'react';
 import TravelList from '../components/travel/travelList';
 import TravelForm from '../components/travel/travelForm';
-import {deleteTravel, fetchAllTravels, postTravel, fetchTravelByName } from '../api/travelApi';
-//change the import to *
+import {deleteTravel, fetchAllTravels, postTravel} from '../api/travelApi';
 
 export default function TravelPage(){
     const [travels, setTravels] = useState<any[]>([]);
     const [showForm, setShowForm] = useState(false);
     const [search, setSearch] = useState('');
-    const [searchResult, setSearchResult] = useState<any[] | null>(null);
-    
+
     useEffect(() => {
         fetchTravels()
     }, []);
@@ -17,7 +15,6 @@ export default function TravelPage(){
     const fetchTravels = async () => {
         const data = await fetchAllTravels();
         setTravels(data);
-        setSearchResult(null);
     }
 
     const handleDeleteTravel = async (id:string) => {
@@ -31,45 +28,21 @@ export default function TravelPage(){
         setShowForm(false);
     }
 
-    const handleSearch = async (e: React.FormEvent) => {
-      e.preventDefault();
-      if(search.trim() === ''){
-        setSearchResult(null);
-        fetchTravels();
-        return;
-      }
-      try{
-        const result = await fetchTravelByName(search.trim());
-        setSearchResult(result && result.length > 0 ? result : []);
-      }catch{
-        setSearchResult([]);
-      }
-    }
+    const filteredTravels = travels.filter(travel =>
+      travel.name.toLowerCase().includes(search.toLowerCase())
+    );
 
     return (
         <div>
-      <h1>Travels</h1>
-      <form onSubmit={handleSearch} style={{ marginBottom: '1em' }}>
-        <input
-          type="text"
-          placeholder="Search by travel name"
-          value={search}
-          onChange={e => setSearch(e.target.value)}
-        />
-        <button type="submit">Search</button>
-        <button
-          type="button"
-          onClick={() => {
-            setSearch('');
-            setSearchResult(null);
-            fetchTravels();
-          }}
-          style={{ marginLeft: '0.5em' }}
-        >
-          Reset
-        </button>
-      </form>
-
+      <h1>Your Travels</h1>
+      <input
+        type="text"
+        placeholder="Search by travel name"
+        value={search}
+        onChange={e => setSearch(e.target.value)}
+        style={{ marginBottom: '1em' }}
+      />
+      <br/>
       {!showForm && (
         <button onClick={() => setShowForm(true)}>
           Add New Travel
@@ -84,11 +57,11 @@ export default function TravelPage(){
       )}
 
       <TravelList
-        travels={searchResult !== null ? searchResult : travels}
+        travels={filteredTravels}
         onDelete={handleDeleteTravel}
         onEdit={() => {}}
       />
-      {searchResult && searchResult.length === 0 && (
+      {filteredTravels.length === 0 && (
         <div>No travels found with that name.</div>
       )}
     </div>

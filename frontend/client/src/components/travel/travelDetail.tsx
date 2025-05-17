@@ -10,6 +10,7 @@ export default function TravelDetail() {
   const { travelId } = useParams();
   const [travel, setTravel] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
     const fetchTravel = async () => {
@@ -22,6 +23,8 @@ export default function TravelDetail() {
     fetchTravel();
   }, [travelId]);
 
+ 
+
   const handleRemoveDestination = async (destinationId: string) => {
     if (!travelId) return;
     if (!window.confirm('Remove this destination from the travel?')) return;
@@ -33,6 +36,11 @@ export default function TravelDetail() {
 
   if (loading) return <div>Loading...</div>;
   if (!travel) return <div>Travel not found</div>;
+
+   const filteredDestinations = travel.destinations 
+    ? travel.destinations.filter((dest: any) => dest.name.toLowerCase().includes(search.toLowerCase())
+    )
+    : [];
 
   let formattedDate = "N/A";
   if (travel.timePeriod) {
@@ -50,12 +58,24 @@ export default function TravelDetail() {
       <p>Description: {travel.description}</p>
       <p>Travel Date: {new Date(travel.timePeriod).toLocaleDateString()}</p>
       
+      <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1em' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5em' }}>
+          <span style={{ fontWeight: 500 }}>Search Destinations:</span>
+          <input
+            type="text"
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+            placeholder="Type to search..."
+            style={{ padding: '0.5em', borderRadius: '5px', border: '1px solid #ccc' }}
+          />
+        </div>
+      </div>
 
       <div className="destinations-list">
         <p>Your destinations</p>
-        <div className="destination-list-container">
-          {travel.destinations && travel.destinations.length > 0 ? (
-            travel.destinations.map((dest: any) => (
+          <div className="destination-list-container">
+            {filteredDestinations.length > 0 ? (
+              filteredDestinations.map((dest: any) => (
               <div key={dest.id} className="destination-card">
                 <strong>Name:</strong> {dest.name} <br />
                 <strong>Description:</strong> {dest.description} <br />
@@ -66,11 +86,11 @@ export default function TravelDetail() {
                   style={{ marginTop: '0.5em', background: '#e74c3c', color: '#fff', border: 'none', borderRadius: '6px', padding: '0.4em 1em', cursor: 'pointer' }}
                   onClick={() => handleRemoveDestination(dest.id)}
                 >
-                  Delete
+                Delete
                 </button>
               </div>
-            ))
-          ) : (
+              ))
+              ) : (
             <p>No destinations yet.</p>
           )}
         </div>
