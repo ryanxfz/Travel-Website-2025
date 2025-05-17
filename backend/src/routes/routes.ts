@@ -96,6 +96,25 @@ export class Routes{
       (req,res,next) => {
         this.travelToDestinationController.getTravelsByDestinationId(req,res).catch(next);
     });
+
+    //Edit travel
+    this.router.put('/travels/:travelId',
+    (req, res, next) => {
+      this.travelController.updateTravel(req, res).catch(next);
+    });
+
+    // Edit destination inside a travel
+    this.router.put('/travels/:travelId/destinations/:destinationId',
+      (req, res, next) => {
+        this.travelToDestinationController.updateDestinationInTravel(req, res).catch(next);
+    });
+
+    // update destination directly, not sure if this is eventually needed.
+    this.router.put('/destinations/:destinationId',
+      (req, res, next) => {
+        this.destinationController.updateDestination(req, res).catch(next);
+    });
+
   }
 
   public getRouter(): Router{

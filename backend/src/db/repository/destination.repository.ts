@@ -30,4 +30,12 @@ export class DestinationRepository{
         const destinationData = await db.select().from(destination).where(eq(destination.id, destinationId)).execute();
         return destinationData[0];
     }
+
+    async updateDestination(destinationId: string, updateData: any) {
+        const [updated] = await db.update(destination)
+            .set(updateData)
+            .where(eq(destination.id, destinationId))
+            .returning();
+        return updated;
+    }
 }

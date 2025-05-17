@@ -34,9 +34,8 @@ export class TravelRepository {
             return { ...t, destinations };
         })
     );
-
     return travelsWithDestinations;
-}
+    }
 
     async findTravelById(travelId: string) {
     // Fetch the travel
@@ -73,4 +72,12 @@ export class TravelRepository {
             .returning();
         return newTravel;
     }
+
+    async updateTravel(travelId: string, updateData: any) {
+        const [updated] = await db.update(travel)
+            .set(updateData)
+            .where(eq(travel.id, travelId))
+            .returning();
+        return updated;
+        }
 }

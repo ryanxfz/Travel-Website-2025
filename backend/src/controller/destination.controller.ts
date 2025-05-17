@@ -67,4 +67,15 @@ export class DestinationController{
         }
     }
 
+    async updateDestination(req: Request, res: Response) {
+        const { destinationId } = req.params;
+        const updateData = req.body;
+        try {
+            const updated = await this.repository.updateDestination(destinationId, updateData);
+            if (!updated) return res.status(404).json({ error: "Destination not found" });
+            return res.status(200).json(updated);
+        } catch (error) {
+            return res.status(500).json({ error: "Failed to update destination" });
+        }
+    }
 }

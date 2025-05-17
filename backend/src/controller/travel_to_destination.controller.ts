@@ -62,4 +62,16 @@ export class TravelToDestinationController {
         }
     }
 
+    async updateDestinationInTravel(req: Request, res: Response) {
+    const { travelId, destinationId } = req.params;
+    const updateData = req.body;
+    try {
+        const updated = await this.repository.updateDestinationInTravel(travelId, destinationId, updateData);
+        if (!updated) return res.status(404).json({ error: "Destination not found in this travel" });
+        return res.status(200).json(updated);
+    } catch (error) {
+        return res.status(500).json({ error: "Failed to update destination in travel" });
+    }
+    }
+
 }

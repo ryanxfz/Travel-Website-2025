@@ -45,4 +45,12 @@ export class TravelToDestinationRepository {
       .where(eq(travelDestination.destinationId, destinationId))
       .execute();
     }
+
+    async updateDestinationInTravel(travelId: string, destinationId: string, updateData: any) {
+      const [updated] = await db.update(destination)
+        .set(updateData)
+        .where(eq(destination.id, destinationId))
+        .returning();
+      return updated;
+    }
 }
