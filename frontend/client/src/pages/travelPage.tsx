@@ -32,38 +32,57 @@ export default function TravelPage(){
       travel.name.toLowerCase().includes(search.toLowerCase())
     );
 
+    // Group travels by month and year
+    const groupedTravelsByMonthYear: { [monthYear: string]: any[] } = {};
+    filteredTravels.forEach((travel: any) => {
+      if (!travel.timePeriod) return;
+      const date = new Date(travel.timePeriod);
+      if (isNaN(date.getTime())) return;
+      const monthYear = date.toLocaleString('default', { month: 'long', year: 'numeric' }); // e.g., "May 2024"
+      if (!groupedTravelsByMonthYear[monthYear]) {
+        groupedTravelsByMonthYear[monthYear] = [];
+      }
+      groupedTravelsByMonthYear[monthYear].push(travel);
+    });
+    
     return (
         <div>
-      <h1>Your Travels</h1>
-      <input
-        type="text"
-        placeholder="Search by travel name"
-        value={search}
-        onChange={e => setSearch(e.target.value)}
-        style={{ marginBottom: '1em' }}
-      />
-      <br/>
-      {!showForm && (
-        <button onClick={() => setShowForm(true)}>
-          Add New Travel
-        </button>
-      )}
+            <h1>Your Travels</h1>
+            <input
+              type="text"
+              placeholder="Search by travel name"
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              style={{ marginBottom: '1em' }}
+            />
+            <br/>
+            {!showForm && (
+              <button onClick={() => setShowForm(true)}>
+                Add New Travel
+              </button>
+            )}
 
-      {showForm && (
-        <TravelForm
-          onSubmit={handleCreateTravel}
-          onCancel={() => setShowForm(false)} 
-        />
-      )}
+            {showForm && (
+              <TravelForm
+                onSubmit={handleCreateTravel}
+                onCancel={() => setShowForm(false)} 
+              />
+            )}
 
-      <TravelList
-        travels={filteredTravels}
-        onDelete={handleDeleteTravel}
-        onEdit={() => {}}
-      />
-      {filteredTravels.length === 0 && (
-        <div>No travels found with that name.</div>
-      )}
-    </div>
+            {Object.keys(groupedTravelsByMonthYear).length > 0 ? (
+              Object.entries(groupedTravelsByMonthYear).map(([monthYear, travels]) => (
+                <div key={monthYear} style={{ marginBottom: '2em', width: '100%' }}>
+                  <h3 style={{ color: '#3498db', marginBottom: '0.5em' }}>{monthYear}</h3>
+                  <TravelList
+                    travels={travels}
+                    onDelete={handleDeleteTravel}
+                    onEdit={() => {}}
+                  />
+                </div>
+              ))
+            ) : (
+              <div>No travels found with that name.</div>
+            )}
+          </div>
       );
 }
