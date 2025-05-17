@@ -37,10 +37,23 @@ export default function TravelDetail() {
   if (loading) return <div>Loading...</div>;
   if (!travel) return <div>Travel not found</div>;
 
-   const filteredDestinations = travel.destinations 
-    ? travel.destinations.filter((dest: any) => dest.name.toLowerCase().includes(search.toLowerCase())
-    )
-    : [];
+  const filteredDestinations = travel.destinations 
+  ? travel.destinations.filter((dest: any) => dest.name.toLowerCase().includes(search.toLowerCase())
+  )
+  : [];
+
+  // Group destinations by month and year
+  const groupedByMonthYear: { [monthYear: string]: any[] } = {};
+  filteredDestinations.forEach((dest: any) => {
+    if (!dest.timePeriod) return;
+    const date = new Date(dest.timePeriod);
+    if (isNaN(date.getTime())) return;
+    const monthYear = date.toLocaleString('default', { month: 'long', year: 'numeric' }); // e.g., "May 2024"
+    if (!groupedByMonthYear[monthYear]) {
+      groupedByMonthYear[monthYear] = [];
+    }
+    groupedByMonthYear[monthYear].push(dest);
+  });
 
   let formattedDate = "N/A";
   if (travel.timePeriod) {
@@ -55,7 +68,7 @@ export default function TravelDetail() {
     <div className="travel-detail">
       <h1>{travel.name}</h1>
       <h2>Destinations</h2>
-      <p>Description: {travel.description}</p>
+      <p>{travel.description}</p>
       <p>Travel Date: {new Date(travel.timePeriod).toLocaleDateString()}</p>
       
       <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1em' }}>
@@ -73,24 +86,39 @@ export default function TravelDetail() {
 
       <div className="destinations-list">
         <p>Your destinations</p>
-          <div className="destination-list-container">
-            {filteredDestinations.length > 0 ? (
-              filteredDestinations.map((dest: any) => (
-              <div key={dest.id} className="destination-card">
-                <strong>Name:</strong> {dest.name} <br />
-                <strong>Description:</strong> {dest.description} <br />
-                <strong>Time Period:</strong> {dest.timePeriod} <br />
-                <strong>Activity:</strong> {dest.activity} <br />
-                <strong>Images:</strong> {dest.images} <br />
-                <button
-                  style={{ marginTop: '0.5em', background: '#e74c3c', color: '#fff', border: 'none', borderRadius: '6px', padding: '0.4em 1em', cursor: 'pointer' }}
-                  onClick={() => handleRemoveDestination(dest.id)}
-                >
-                Delete
-                </button>
+        <div className="destination-list-container">
+          {Object.keys(groupedByMonthYear).length > 0 ? (
+            Object.entries(groupedByMonthYear).map(([monthYear, dests]) => (
+              <div key={monthYear} style={{ marginBottom: '2em', width: '100%' }}>
+                <h3 style={{ color: '#3498db', marginBottom: '0.5em' }}>{monthYear}</h3>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1.5rem' }}>
+                  {dests.map((dest: any) => (
+                    <div key={dest.id} className="destination-card">
+                      <strong>Name:</strong> {dest.name} <br />
+                      <strong>Description:</strong> {dest.description} <br />
+                      <strong>Time Period:</strong> {dest.timePeriod} <br />
+                      <strong>Activity:</strong> {dest.activity} <br />
+                      <strong>Images:</strong> {dest.images} <br />
+                      <button
+                        style={{
+                          marginTop: '0.5em',
+                          background: '#e74c3c',
+                          color: '#fff',
+                          border: 'none',
+                          borderRadius: '6px',
+                          padding: '0.4em 1em',
+                          cursor: 'pointer'
+                        }}
+                        onClick={() => handleRemoveDestination(dest.id)}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  ))}
+                </div>
               </div>
-              ))
-              ) : (
+            ))
+          ) : (
             <p>No destinations yet.</p>
           )}
         </div>
