@@ -6,7 +6,7 @@ interface TravelCardProps {
 }
 
 export default function TravelCard({ travel }: TravelCardProps) {
-  // Format date for display
+  
   const formatDate = (date: Date) => {
     const options: Intl.DateTimeFormatOptions = { 
       year: 'numeric', 

@@ -2,15 +2,21 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { fetchTravelById } from '../../api/travelApi';
 import { removeDestinationFromTravel } from '../../api/travelApi';
+import { fetchWeather } from '../../api/openWeatherApi';
 import './travel.css';
 
 export default function TravelDetail() {
-
   const navigate = useNavigate();
+
   const { travelId } = useParams();
   const [travel, setTravel] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
+
+  //for openWeatherAPI
+  const [weatherData, setWeatherData] = useState<{ [id: string]: any }>({});
+  const [loadingWeather, setLoadingWeather] = useState<{ [id: string]: boolean }>({});
+  const [weatherError, setWeatherError] = useState<{ [id: string]: string | null }>({});
 
   useEffect(() => {
     const fetchTravel = async () => {
@@ -23,7 +29,21 @@ export default function TravelDetail() {
     fetchTravel();
   }, [travelId]);
 
- 
+  useEffect(() => {
+    if (!travel || !travel.destinations) return;
+    travel.destinations.forEach(async (dest: any) => {
+      setLoadingWeather(prev => ({ ...prev, [dest.id]: true }));
+      setWeatherError(prev => ({ ...prev, [dest.id]: null }));
+      try {
+        const data = await fetchWeather(dest.name);
+        setWeatherData(prev => ({ ...prev, [dest.id]: data }));
+      } catch (err) {
+        setWeatherError(prev => ({ ...prev, [dest.id]: 'Weather not found' }));
+      } finally {
+        setLoadingWeather(prev => ({ ...prev, [dest.id]: false }));
+      }
+    });
+  }, [travel]);
 
   const handleRemoveDestination = async (destinationId: string) => {
     if (!travelId) return;
@@ -99,6 +119,19 @@ export default function TravelDetail() {
                       <strong>Time Period:</strong> {dest.timePeriod} <br />
                       <strong>Activity:</strong> {dest.activity} <br />
                       <strong>Images:</strong> {dest.images} <br />
+
+                      {loadingWeather[dest.id] && (
+                        <div style={{ color: '#3498db' }}>Loading weather...</div>
+                      )}
+                      {weatherError[dest.id] && (
+                        <div style={{ color: '#e74c3c' }}>Weather not found. Please check the city name</div>
+                      )}
+                      {weatherData[dest.id] && (
+                        <div style={{ marginTop: '0.5em' }}>
+                          <strong>Weather:</strong> {weatherData[dest.id].weather[0].main}, {weatherData[dest.id].main.temp}°C
+                        </div>
+                      )}
+
                       <button
                         style={{
                           marginTop: '0.5em',
