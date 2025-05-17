@@ -70,11 +70,18 @@ export default function TravelPage(){
         </button>
       </form>
 
-      <button onClick={() => setShowForm(!showForm)}>
-        {showForm ? 'Cancel' : 'Add New Travel'}
-      </button>
+      {!showForm && (
+        <button onClick={() => setShowForm(true)}>
+          Add New Travel
+        </button>
+      )}
 
-      {showForm && <TravelForm onSubmit={handleCreateTravel} />}
+      {showForm && (
+        <TravelForm
+          onSubmit={handleCreateTravel}
+          onCancel={() => setShowForm(false)} 
+        />
+      )}
 
       <TravelList
         travels={searchResult !== null ? searchResult : travels}

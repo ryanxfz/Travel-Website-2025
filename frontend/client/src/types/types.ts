@@ -14,7 +14,7 @@ export interface Travel extends TravelDTO{
 export interface DestinationDTO{
     name: string;
     description: string;
-    timePeriod: Date;
+    timePeriod: string;
     activity: string;
     images: string;
 }

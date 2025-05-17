@@ -62,7 +62,7 @@ export async function fetchTravelByDestinationId(destinationId: string): Promise
     return response.json();
 }
 
-export async function removeDestinationFromTravel(travelId: string, destinationIds: string): Promise<void>{
+export async function removeDestinationFromTravel(travelId: string, destinationIds: string[]): Promise<void>{
     const response = await fetch(`${API_BASE_URL}/api/travels/${travelId}/destinations`, {
         method: 'DELETE',
         headers: {

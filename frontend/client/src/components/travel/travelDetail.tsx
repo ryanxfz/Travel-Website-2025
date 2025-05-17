@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { fetchTravelById } from '../../api/travelApi';
+import { removeDestinationFromTravel } from '../../api/travelApi';
+import './travel.css';
 
 export default function TravelDetail() {
 
@@ -19,6 +21,15 @@ export default function TravelDetail() {
     };
     fetchTravel();
   }, [travelId]);
+
+  const handleRemoveDestination = async (destinationId: string) => {
+    if (!travelId) return;
+    if (!window.confirm('Remove this destination from the travel?')) return;
+    await removeDestinationFromTravel(travelId, [destinationId]);
+    // Refresh travel data
+    const data = await fetchTravelById(travelId);
+    setTravel(data);
+  };
 
   if (loading) return <div>Loading...</div>;
   if (!travel) return <div>Travel not found</div>;
@@ -51,6 +62,12 @@ export default function TravelDetail() {
                 <strong>Time Period:</strong> {dest.timePeriod} <br />
                 <strong>Activity:</strong> {dest.activity} <br />
                 <strong>Images:</strong> {dest.images} <br />
+                <button
+                  style={{ marginTop: '0.5em', background: '#e74c3c', color: '#fff', border: 'none', borderRadius: '6px', padding: '0.4em 1em', cursor: 'pointer' }}
+                  onClick={() => handleRemoveDestination(dest.id)}
+                >
+                  Delete
+                </button>
               </div>
             ))
           ) : (
@@ -60,9 +77,11 @@ export default function TravelDetail() {
       </div>
 
       <button
-        onClick={() => navigate(`/destinations/new?travelId=${travelId}`)}>Add Destinations
+        className="add-destination-button"
+        onClick={() => navigate(`/destinations/new?travelId=${travelId}`)}
+      >
+        Add Destinations
       </button>
-      <button onClick={() => {/* Delete logic */}}>Delete</button>
     </div>
   );
 }

@@ -46,3 +46,13 @@
   flex: 1 1 260px;
   margin-bottom: 1rem;
 }
+
+.add-destination-button {
+  background: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5em 1.2em;
+  margin-top: 1em;
+  cursor: pointer;
+}
