@@ -79,5 +79,5 @@ export class TravelRepository {
             .where(eq(travel.id, travelId))
             .returning();
         return updated;
-        }
+    }
 }

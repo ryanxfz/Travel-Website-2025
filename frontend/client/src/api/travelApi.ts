@@ -82,3 +82,17 @@ export async function fetchTravelById(travelId: string){
     }
     return response.json();
 }
+
+export async function updateTravel(travelId: string, data: Partial<TravelDTO>): Promise<Travel> {
+    const response = await fetch(`${API_BASE_URL}/api/travels/${travelId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    });
+    if (!response.ok) {
+        throw new Error('Failed to update travel');
+    }
+    return response.json();
+}

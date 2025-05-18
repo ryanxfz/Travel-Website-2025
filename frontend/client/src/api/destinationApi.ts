@@ -50,3 +50,17 @@ export async function postDestination(data: DestinationDTO): Promise<Destination
     }
     return response.json();
 }
+
+export async function updateDestinationInTravel(travelId: string, destinationId: string, data: DestinationDTO): Promise<Destination> {
+    const response = await fetch(`${API_BASE_URL}/api/travels/${travelId}/destinations/${destinationId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    });
+    if (!response.ok) {
+        throw new Error('Failed to update destination');
+    }
+    return response.json();
+}

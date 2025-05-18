@@ -131,7 +131,21 @@ export default function TravelDetail() {
                           <strong>Weather:</strong> {weatherData[dest.id].weather[0].main}, {weatherData[dest.id].main.temp}°C
                         </div>
                       )}
-
+                      <button
+                        style={{
+                          marginTop: '0.5em',
+                          marginRight: '0.5em',
+                          background: '#3498db',
+                          color: '#fff',
+                          border: 'none',
+                          borderRadius: '6px',
+                          padding: '0.4em 1em',
+                          cursor: 'pointer'
+                        }}
+                        onClick={() => navigate(`/travels/${travelId}/destinations/edit/${dest.id}`)}
+                      >
+                        Edit
+                      </button>
                       <button
                         style={{
                           marginTop: '0.5em',

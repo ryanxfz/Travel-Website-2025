@@ -2,6 +2,7 @@ import {useState, useEffect} from 'react';
 import TravelList from '../components/travel/travelList';
 import TravelForm from '../components/travel/travelForm';
 import {deleteTravel, fetchAllTravels, postTravel} from '../api/travelApi';
+import Navbar from '../components/Navbar';
 
 export default function TravelPage(){
     const [travels, setTravels] = useState<any[]>([]);
