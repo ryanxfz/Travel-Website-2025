@@ -80,7 +80,7 @@ This makes it easy to visually browse and find travels based on when they occur.
     <br>Weather: Cloudy, 16.78°C
 
 ## API Route Structure
-The base URL for the backend API is [http](http://localhost:4000/). Adjust the endpoints accordingly by referring to these tables:
+The base URL for the backend API is [http://localhost:4000/](http://localhost:4000/). Adjust the endpoints accordingly by referring to these tables:
 ### Travel API Endpoints
 | Method | Route                      | Description               |
 |--------|----------------------------|---------------------------|
