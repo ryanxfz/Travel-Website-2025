@@ -1,93 +1,80 @@
 # FWE-SS-25-1123134
 
+## Project Overview:
+This project is a full-stack travel planner application that allows users to create, view, and manage their travels and destinations. The backend is built with Node.js and Express, while the frontend uses React and TypeScript. Data is persisted in a PostgreSQL database, and Drizzle is used for Object Relational Mapping (ORM). The backend is run in Docker.
 
+### Prerequisites
 
-## Getting started
+- [Node.js](https://nodejs.org/) (v18+ recommended)
+- [npm](https://www.npmjs.com/)
+- [Docker](https://www.docker.com/)
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
-
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
-
-## Add your files
-
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/topics/git/add_files/#add-files-to-a-git-repository) or push an existing Git repository with the following command:
-
+### Getting the Project Running:
+#### Step 1: Clone the Repository and go to the project directory
+```sh
+git clone https://code.fbi.h-da.de/stryzebua/fwe-ss-25-1123134.git
+cd fwe-ss-25-1123134
 ```
-cd existing_repo
-git remote add origin https://code.fbi.h-da.de/stryzebua/fwe-ss-25-1123134.git
-git branch -M main
-git push -uf origin main
+#### Step 2: Setting up the Backend
+Docker is used for the backend, so the first thing you need to do is to get it set up. From this step, make sure that docker desktop is already installed and running.
+
+##### 2.1 Navigate to the backend directory
+```sh
+cd backend
 ```
+##### 2.2 Build the docker container
+```sh
+docker-compose build
+```
+##### 2.3 Run the container
+```sh
+docker-compose up -d
+```
+##### 2.4 Generate & Migrate Database
+Now that docker is up and running, the next step is to generate and migrate database. Run these commands:
+```sh
+npm install
+npm run db:generate
+npm run db:migrate
+```
+##### 2.5 Run the backend
+Finally, we run the backend. On the same backend directory, run this command:
+```sh
+npm run dev
+```
+The backend will run on http://localhost:4000
+#### Step 3: Run the frontend
+On a separate terminal, go to the frontend directory:
+```sh
+cd fwe-ss-25-1123134
+cd frontend
+cd client
+```
+Once you are in this directory, simply run this command:
+```sh
+npm install
+npm run dev
+```
+The frontend will run on http://localhost:5173 (or as shown in your terminal)
 
-## Integrate with your tools
+### Freestyle Task #1 (Without external API): Travel Grouping by Month/Year
 
-- [ ] [Set up project integrations](https://code.fbi.h-da.de/stryzebua/fwe-ss-25-1123134/-/settings/integrations)
+- All travels are grouped and sorted by their timePeriod (date) into sections labeled by Month and Year (e.g., "May 2024").
+- How it works:
+The backend provides travel data with a timePeriod field. The frontend processes this data, groups travels by their Month/Year, and displays them in an organized, chronological order.
+- Benefit:
+This makes it easy to visually browse and find travels based on when they occur.
 
-## Collaborate with your team
-
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/user/project/merge_requests/auto_merge/)
-
-## Test and Deploy
-
-Use the built-in continuous integration in GitLab.
-
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
-
-***
-
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
-
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
-
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
-
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
-
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
-
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+### Freestyle Task #2 (With external API): OpenWeather API Integration
+- For each destination, the app can display the current weather in the destination city using the [OpenWeather API](https://openweathermap.org/api).
+- How to enable:
+    - Sign up for a free API key: [Click here](https://home.openweathermap.org/users/sign_up) to sign up and create a FREE account.
+    - After signing up, go to the [API Keys Page](https://home.openweathermap.org/api_keys) and copy the key.
+    - Configure the frontend: Create a .env file in frontend/client with the following content:
+    ```sh
+    VITE_OPEN_WEATHER_API_KEY=your_api_key_here
+    ```
+    - Restart the frontend server
+- Usage: When vieweing a destination, the app will fetch and display the current weather & temperature for the city.
+- Example Output
+    <br>Weather: Cloudy, 16.78°C
