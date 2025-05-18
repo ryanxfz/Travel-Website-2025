@@ -127,7 +127,7 @@ You can use Postman, ThunderClient, or a similer tool to test the API endpoints.
 **PUT** `http://localhost:4000/api/travels/:travelId`
 
 **Body (JSON)** 
-```JSON
+```json
 {
   "name": "Updated Europe Trip",
   "description": "Updated description",
