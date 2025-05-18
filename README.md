@@ -106,6 +106,9 @@ The base URL for the backend API is [http://localhost:4000/](http://localhost:40
 | POST    | `/api/travels/:travelId/destinations`                 | Add destination to travel ({ "destinationId": ["id"] })         |
 | DELETE    | `/api/travels/:travelId/destinations`  | Remove destination from travel ({ "destinationId": ["id"] })
 
+**Notes:**
+- Make sure to change `destinationId` and `travelId`, to its corresponding ID that you want to test.
+
 ### How to test the API:
 You can use Postman, ThunderClient, or a similar tool to test the API endpoints. Though, the collections prodived in this project uses Postman.
 
