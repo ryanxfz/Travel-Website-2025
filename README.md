@@ -136,3 +136,6 @@ You can use Postman, ThunderClient, or a similer tool to test the API endpoints.
   "images": "updated.jpg"
 }
 ```
+
+## Support
+Should any issues arise (e.g., problems with API keys), please open an issue or contact the maintainer (me) directly via email.
