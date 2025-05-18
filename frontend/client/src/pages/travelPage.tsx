@@ -98,7 +98,9 @@ export default function TravelPage(){
               </div>
             ))
           ) : (
-            <div>No travels found with that name.</div>
+            <div>
+              <p>No travels found with that name.</p>
+            </div>
           )}
         </div>
       </div>
