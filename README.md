@@ -107,7 +107,7 @@ The base URL for the backend API is [http://localhost:4000/](http://localhost:40
 | DELETE    | `/api/travels/:travelId/destinations`  | Remove destination from travel ({ "destinationId": ["id"] })
 
 ### How to test the API:
-You can use Postman, ThunderClient, or a similar tool to test the API endpoints.
+You can use Postman, ThunderClient, or a similar tool to test the API endpoints. Though, the collections prodived in this project uses Postman.
 
 #### Example: Create a Travel
 
@@ -136,6 +136,19 @@ You can use Postman, ThunderClient, or a similar tool to test the API endpoints.
   "images": "updated.jpg"
 }
 ```
+## Postman API Collection
+You can find the JSON files for all the postman-collection in the backend folder.
+To access this directory from root, simply change your directory:
+```sh
+cd backend/postman-colletion
+```
+
+### Importing the JSON files to your Postman app:
+- Open Postman
+- Click "Import"
+- Choose "Upload Files"
+- Select the `collection.json` file from the `backend/postman-collection` directory
+- Click "Import" to add all API endpoints to your Postman workspace
 
 ## Support
 Should any issues arise (e.g., problems with API keys), please open an issue or contact the maintainer (me) directly via email.

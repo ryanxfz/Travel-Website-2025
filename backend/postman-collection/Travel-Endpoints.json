@@ -1,0 +1,205 @@
+{
+	"info": {
+		"_postman_id": "64bfb088-cfdc-4768-affe-70e836841823",
+		"name": "Travel Endpoints",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "45060159"
+	},
+	"item": [
+		{
+			"name": "GET",
+			"item": [
+				{
+					"name": "Get All Travels",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/travels",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"travels"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Travel By Id",
+					"request": {
+						"auth": {
+							"type": "inherit"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/travels/9e442b2f-8a2a-4b0e-8a96-da29575dfdeb",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"travels",
+								"9e442b2f-8a2a-4b0e-8a96-da29575dfdeb"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Travel By Name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/travels/name/Southern%20europe%20trip",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"travels",
+								"name",
+								"Southern%20europe%20trip"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Travel With Specific Destination",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/travels/destination/:destinationId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"travels",
+								"destination",
+								":destinationId"
+							],
+							"variable": [
+								{
+									"key": "destinationId",
+									"value": "",
+									"type": "string"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "POST",
+			"item": [
+				{
+					"name": "Post New Travel",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"TEST_NAME\",\r\n  \"description\": \"TEST_DESCRIPTION\",\r\n  \"timePeriod\": \"2024-07-05\",\r\n  \"participants\": \"TEST_PARTICIPANTS\",\r\n  \"images\": \"TEST_IMAGES\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/api/travels",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"travels"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "DELETE",
+			"item": [
+				{
+					"name": "DELETE Travel",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/travels/96311427-4758-4c67-a299-b0631a3a4ba5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"travels",
+								"96311427-4758-4c67-a299-b0631a3a4ba5"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PUT",
+			"item": [
+				{
+					"name": "UPDATE Travel",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"UPDATED_NAME\",\r\n  \"description\": \"UPDATED_DESCRIPTION\",\r\n  \"timePeriod\": \"2024-08-01\",\r\n  \"participants\": \"UPDATED_PARTCIPANTS\",\r\n  \"images\": \"updated.jpg\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/api/travels/96311427-4758-4c67-a299-b0631a3a4ba5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"travels",
+								"96311427-4758-4c67-a299-b0631a3a4ba5"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

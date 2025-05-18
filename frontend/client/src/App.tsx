@@ -1,7 +1,6 @@
 import {Routes, Route, BrowserRouter, Navigate} from 'react-router-dom'
 import TravelPage from './pages/travelPage'
 import { DestinationsPage } from './pages/destinationPage'
-//import Navbar from './components/Navbar'
 import './App.css'
 import { CreateDestinationPage } from './pages/createDestinationPage';
 import TravelForm from './components/travel/travelForm';
