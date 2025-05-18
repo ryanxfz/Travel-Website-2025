@@ -86,6 +86,25 @@ export default function TravelDetail() {
 
   return (
     <div className="travel-detail">
+      {/* Home Button */}
+      <button
+        onClick={() => navigate('/')}
+        style={{
+          position: 'absolute',
+          top: '1.5rem',
+          left: '1.5rem',
+          background: '#3498db',
+          color: '#fff',
+          border: 'none',
+          borderRadius: '6px',
+          padding: '0.5em 1.5em',
+          fontWeight: 600,
+          cursor: 'pointer',
+          zIndex: 10
+        }}
+      >
+        Home
+      </button>
       <h1>{travel.name}</h1>
       <h2>Destinations</h2>
       <p>{travel.description}</p>
@@ -93,7 +112,7 @@ export default function TravelDetail() {
       
       <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1em' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5em' }}>
-          <span style={{ fontWeight: 800 }}>Search Destinations:</span>
+          <span style={{ fontWeight: 800, color: '#535bf2' }}>Search Destinations:</span>
           <input
             type="text"
             value={search}
@@ -105,12 +124,11 @@ export default function TravelDetail() {
       </div>
 
       <div className="destinations-list">
-        <p>Your destinations</p>
         <div className="destination-list-container">
           {Object.keys(groupedByMonthYear).length > 0 ? (
             Object.entries(groupedByMonthYear).map(([monthYear, dests]) => (
               <div key={monthYear} style={{ marginBottom: '2em', width: '100%' }}>
-                <h3 style={{ color: '#3498db', marginBottom: '0.5em' }}>{monthYear}</h3>
+                <h3 style={{ color: '#3498db', marginBottom: '0.8em', fontSize: '3rem' }}>------{monthYear}------</h3>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1.5rem' }}>
                   {dests.map((dest: any) => (
                     <div key={dest.id} className="destination-card">

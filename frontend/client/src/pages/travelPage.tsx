@@ -32,9 +32,15 @@ export default function TravelPage(){
       travel.name.toLowerCase().includes(search.toLowerCase())
     );
 
+    const sortedTravels = [...filteredTravels].sort((a, b) => {
+      const dateA = new Date(a.timePeriod).getTime();
+      const dateB = new Date(b.timePeriod).getTime();
+      return dateA - dateB;
+    });
+
     // Group travels by month and year
     const groupedTravelsByMonthYear: { [monthYear: string]: any[] } = {};
-    filteredTravels.forEach((travel: any) => {
+    sortedTravels.forEach((travel: any) => {
       if (!travel.timePeriod) return;
       const date = new Date(travel.timePeriod);
       if (isNaN(date.getTime())) return;
@@ -46,43 +52,62 @@ export default function TravelPage(){
     });
     
     return (
-        <div>
-            <h1>Your Travels</h1>
-            <input
-              type="text"
-              placeholder="Search by travel name"
-              value={search}
-              onChange={e => setSearch(e.target.value)}
-              style={{ marginBottom: '1em' }}
-            />
-            <br/>
-            {!showForm && (
-              <button onClick={() => setShowForm(true)}>
-                Add New Travel
-              </button>
-            )}
+      <div>
+        <h1>Your Travels</h1>
+        <input
+          type="text"
+          placeholder="Search by travel name"
+          value={search}
+          onChange={e => setSearch(e.target.value)}
+          style={{
+            marginBottom: '1.5em',
+            width: '400px',
+            fontSize: '1.2em',
+            padding: '0.7em 1em',
+            borderRadius: '8px',
+            border: '1px solid #ccc'
+          }}
+        />
+        <br />
+        {!showForm && (
+          <button onClick={() => setShowForm(true)}>
+            Add New Travel
+          </button>
+        )}
 
-            {showForm && (
-              <TravelForm
-                onSubmit={handleCreateTravel}
-                onCancel={() => setShowForm(false)} 
-              />
-            )}
+        {showForm && (
+          <TravelForm
+            onSubmit={handleCreateTravel}
+            onCancel={() => setShowForm(false)}
+          />
+        )}
 
-            {Object.keys(groupedTravelsByMonthYear).length > 0 ? (
-              Object.entries(groupedTravelsByMonthYear).map(([monthYear, travels]) => (
-                <div key={monthYear} style={{ marginBottom: '2em', width: '100%' }}>
-                  <h3 style={{ color: '#3498db', marginBottom: '0.5em' }}>{monthYear}</h3>
-                  <TravelList
-                    travels={travels}
-                    onDelete={handleDeleteTravel}
-                    onEdit={() => {}}
-                  />
-                </div>
-              ))
-            ) : (
-              <div>No travels found with that name.</div>
-            )}
-          </div>
-      );
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          {Object.keys(groupedTravelsByMonthYear).length > 0 ? (
+            Object.entries(groupedTravelsByMonthYear).map(([monthYear, travels]) => (
+              <div
+                key={monthYear}
+                style={{
+                  marginBottom: '2em',
+                  width: '100%',
+                  maxWidth: '1200px', // or whatever fits your design
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center'
+                }}
+              >
+                <h3 style={{ color: '#3498db', marginBottom: '0.8em', fontSize: '3rem' }}>------{monthYear}------</h3>
+                <TravelList
+                  travels={travels}
+                  onDelete={handleDeleteTravel}
+                  onEdit={() => {}}
+                />
+              </div>
+            ))
+          ) : (
+            <div>No travels found with that name.</div>
+          )}
+        </div>
+      </div>
+    );
 }

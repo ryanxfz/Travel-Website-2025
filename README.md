@@ -107,7 +107,7 @@ The base URL for the backend API is [http://localhost:4000/](http://localhost:40
 | DELETE    | `/api/travels/:travelId/destinations`  | Remove destination from travel ({ "destinationId": ["id"] })
 
 ### How to test the API:
-You can use Postman, ThunderClient, or a similer tool to test the API endpoints.
+You can use Postman, ThunderClient, or a similar tool to test the API endpoints.
 
 #### Example: Create a Travel
 
