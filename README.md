@@ -78,3 +78,29 @@ This makes it easy to visually browse and find travels based on when they occur.
 - Usage: When vieweing a destination, the app will fetch and display the current weather & temperature for the city.
 - Example Output
     <br>Weather: Cloudy, 16.78°C
+
+## API Route Structure
+### Travel API Endpoints
+| Method | Route                      | Description               |
+|--------|----------------------------|---------------------------|
+| GET    | `/api/travels`             | Get all travels           |
+| GET    | `/api/travels/:travelId`   | Get travel by ID          |
+| GET    | `/api/travels/name/:travelName` | Get travel by name    |
+| POST   | `/api/travels`             | Create a new travel       |
+| PUT    | `/api/travels/:travelId`   | Edit a travel             |
+| DELETE | `/api/travels/:travelId`   | Delete a travel           |
+
+### Destinations API Endpoints
+| Method | Route                               | Description                  |
+|--------|-------------------------------------|------------------------------|
+| GET    | `/api/destinations`                 | Get all destinations         |
+| GET    | `/api/destinations/:destinationId`  | Get destination by ID        |
+| POST   | `/api/destinations`                 | Create a new destination     |
+| PUT    | `/api/destinations/:destinationId`  | Edit a destination           |
+| DELETE | `/api/destinations/:destinationId`  | Delete a destination         |
+
+### Travel-Destination (Linking)
+| Method | Route                               | Description                  |
+|--------|-------------------------------------|------------------------------|
+| POST    | `/api/travels/:travelId/destinations`                 | Add destination to travel ({ "destinationId": ["id"] })         |
+| DELETE    | `/api/travels/:travelId/destinations`  | Remove destination from travel ({ "destinationId": ["id"] })
