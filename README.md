@@ -105,3 +105,34 @@ The base URL for the backend API is [http://localhost:4000/](http://localhost:40
 |--------|-------------------------------------|------------------------------|
 | POST    | `/api/travels/:travelId/destinations`                 | Add destination to travel ({ "destinationId": ["id"] })         |
 | DELETE    | `/api/travels/:travelId/destinations`  | Remove destination from travel ({ "destinationId": ["id"] })
+
+### How to test the API:
+You can use Postman, ThunderClient, or a similer tool to test the API endpoints.
+
+#### Example: Create a Travel
+
+**POST** `http://localhost:4000/api/travels`  
+**Body (JSON):**
+```json
+{
+  "name": "Mediterranean Trip",
+  "description": "Good foods and nice breeze by the beach",
+  "timePeriod": "2024-07-05",
+  "participants": "Jan, John, Bob",
+  "images": "beach.jpg"
+}
+```
+#### Example: Edit a travel
+
+**PUT** `http://localhost:4000/api/travels/:travelId`
+
+**Body (JSON)** 
+```JSON
+{
+  "name": "Updated Europe Trip",
+  "description": "Updated description",
+  "timePeriod": "2024-08-01",
+  "participants": "Alice, Bob, Charlie",
+  "images": "updated.jpg"
+}
+```
