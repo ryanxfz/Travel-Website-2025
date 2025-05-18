@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { fetchTravelById, updateTravel } from '../../api/travelApi';
-import type { TravelDTO } from '../../types/types';
 
 type TravelFormFields = {
   name: string;

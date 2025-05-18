@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { fetchAllDestinations } from '../api/destinationApi';
-import type { DestinationDTO, Destination } from '../types/types';
+import type { Destination } from '../types/types';
 import { fetchWeather } from '../api/openWeatherApi';
 
 
@@ -46,20 +46,7 @@ export function DestinationsPage() {
       setLoadingWeather(prev => ({ ...prev, [destination.id]: false }));
     }
   });
-}, [destinations]);
-
-  const handleShowWeather = async (destination: Destination) => {
-    setLoadingWeather(prev => ({ ...prev, [destination.id]: true }));
-    setWeatherError(prev => ({ ...prev, [destination.id]: null }));
-    try {
-      const data = await fetchWeather(destination.name);
-      setWeatherData(prev => ({ ...prev, [destination.id]: data }));
-    } catch (err) {
-      setWeatherError(prev => ({ ...prev, [destination.id]: 'Weather not found' }));
-    } finally {
-      setLoadingWeather(prev => ({ ...prev, [destination.id]: false }));
-  }
-};
+  }, [destinations]);
 
   // Filter destinations based on search input
   const filteredDestinations = destinations.filter(destination =>
