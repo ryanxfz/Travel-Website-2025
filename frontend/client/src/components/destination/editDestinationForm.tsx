@@ -100,7 +100,7 @@ export default function EditDestinationForm() {
           <input
             type="text"
             name="name"
-            placeholder="Name"
+            placeholder="City/Place"
             value={form.name}
             onChange={handleChange}
             style={{ flex: 1, padding: "0.5em", border: "1px solid #ccc", borderRadius: "5px" }}

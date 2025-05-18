@@ -5,7 +5,7 @@ import './App.css'
 import { CreateDestinationPage } from './pages/createDestinationPage';
 import TravelForm from './components/travel/travelForm';
 import TravelDetail from './components/travel/travelDetail';
-import EditDestinationForm from './components/destination/EditDestinationForm';
+import EditDestinationForm from './components/destination/editDestinationForm';
 import EditTravelForm from './components/travel/editTravelForm';
 
 

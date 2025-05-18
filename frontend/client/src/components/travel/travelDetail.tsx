@@ -4,6 +4,7 @@ import { fetchTravelById } from '../../api/travelApi';
 import { removeDestinationFromTravel } from '../../api/travelApi';
 import { fetchWeather } from '../../api/openWeatherApi';
 import './travel.css';
+import DestinationCard from '../destination/destinationCard';
 
 export default function TravelDetail() {
   const navigate = useNavigate();
@@ -122,73 +123,34 @@ export default function TravelDetail() {
           />
         </div>
       </div>
-
-      <div className="destinations-list">
-        <div className="destination-list-container">
-          {Object.keys(groupedByMonthYear).length > 0 ? (
-            Object.entries(groupedByMonthYear).map(([monthYear, dests]) => (
-              <div key={monthYear} style={{ marginBottom: '2em', width: '100%' }}>
-                <h3 style={{ color: '#3498db', marginBottom: '0.8em', fontSize: '3rem' }}>------{monthYear}------</h3>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1.5rem' }}>
-                  {dests.map((dest: any) => (
-                    <div key={dest.id} className="destination-card">
-                      <strong>Name:</strong> {dest.name} <br />
-                      <strong>Description:</strong> {dest.description} <br />
-                      <strong>Time Period:</strong> {dest.timePeriod} <br />
-                      <strong>Activity:</strong> {dest.activity} <br />
-                      <strong>Images:</strong> {dest.images} <br />
-
-                      {loadingWeather[dest.id] && (
-                        <div style={{ color: '#3498db' }}>Loading weather...</div>
-                      )}
-                      {weatherError[dest.id] && (
-                        <div style={{ color: '#e74c3c' }}>Weather not found. Please check the city name</div>
-                      )}
-                      {weatherData[dest.id] && (
-                        <div style={{ marginTop: '0.5em' }}>
-                          <strong>Weather:</strong> {weatherData[dest.id].weather[0].main}, {weatherData[dest.id].main.temp}°C
-                        </div>
-                      )}
-                      <button
-                        style={{
-                          marginTop: '0.5em',
-                          marginRight: '0.5em',
-                          background: '#3498db',
-                          color: '#fff',
-                          border: 'none',
-                          borderRadius: '6px',
-                          padding: '0.4em 1em',
-                          cursor: 'pointer'
-                        }}
-                        onClick={() => navigate(`/travels/${travelId}/destinations/edit/${dest.id}`)}
-                      >
-                        Edit
-                      </button>
-                      <button
-                        style={{
-                          marginTop: '0.5em',
-                          background: '#e74c3c',
-                          color: '#fff',
-                          border: 'none',
-                          borderRadius: '6px',
-                          padding: '0.4em 1em',
-                          cursor: 'pointer'
-                        }}
-                        onClick={() => handleRemoveDestination(dest.id)}
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))
-          ) : (
-            <p>No destinations yet.</p>
-          )}
+      
+      {Object.entries(groupedByMonthYear).map(([monthYear, dests]) => (
+        <div key={monthYear} style={{ marginBottom: '2em', width: '100%' }}>
+          <h3 style={{ color: '#3498db', marginBottom: '0.8em', fontSize: '2rem' }}>------{monthYear}------</h3>
+          <div
+            style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              gap: '1.5rem',
+              maxWidth: '1100px',
+              margin: '0 auto',
+              justifyContent: dests.length <= 2 ? 'center' : 'flex-start',
+            }}
+          >
+            {dests.map((dest: any) => (
+              <DestinationCard
+                key={dest.id}
+                dest={dest}
+                loadingWeather={loadingWeather[dest.id]}
+                weatherError={weatherError[dest.id]}
+                weatherData={weatherData[dest.id]}
+                onEdit={() => navigate(`/travels/${travelId}/destinations/edit/${dest.id}`)}
+                onDelete={() => handleRemoveDestination(dest.id)}
+              />
+            ))}
+          </div>
         </div>
-      </div>
-
+      ))}
       <button
         className="add-destination-button"
         onClick={() => navigate(`/destinations/new?travelId=${travelId}`)}
