@@ -1,5 +1,3 @@
-import React from "react";
-
 interface DestinationCardProps {
   dest: any;
   loadingWeather: boolean;

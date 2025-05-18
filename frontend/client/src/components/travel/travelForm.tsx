@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 export default function TravelForm({ onSubmit, initialData = {}, onCancel, isLoading = false, error }: any) {
-  const [showForm, setShowForm] = useState(false);
+
   const [formData, setFormData] = useState({
     name: initialData.name || '',
     description: initialData.description || '',
@@ -9,10 +9,6 @@ export default function TravelForm({ onSubmit, initialData = {}, onCancel, isLoa
     participants: initialData.participants || '',
     images: initialData.images || '',
   });
-
-  const handleCancel = () =>{
-    setShowForm(false);
-  }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -55,7 +51,6 @@ export default function TravelForm({ onSubmit, initialData = {}, onCancel, isLoa
         </p>
         {error && <div style={{ color: "#e53e3e", marginBottom: "1rem", textAlign: "center" }}>{error}</div>}
 
-        {/* Name and Participants side by side */}
         <div style={{ display: "flex", gap: "1rem", marginBottom: "1rem" }}>
           <input
             type="text"
@@ -77,7 +72,6 @@ export default function TravelForm({ onSubmit, initialData = {}, onCancel, isLoa
           />
         </div>
 
-        {/* Description */}
         <textarea
           name="description"
           placeholder="Description"
@@ -88,7 +82,6 @@ export default function TravelForm({ onSubmit, initialData = {}, onCancel, isLoa
           required
         />
 
-        {/* Images */}
         <input
           type="text"
           name="images"
@@ -99,7 +92,6 @@ export default function TravelForm({ onSubmit, initialData = {}, onCancel, isLoa
           required
         />
 
-        {/* Time Period */}
         <div style={{ display: "flex", gap: "1rem", marginBottom: "1.5rem" }}>
           <input
             type="date"
@@ -112,7 +104,6 @@ export default function TravelForm({ onSubmit, initialData = {}, onCancel, isLoa
           />
         </div>
 
-        {/* Buttons */}
         <div style={{ display: "flex", gap: "1rem", justifyContent: "flex-end" }}>
           <button
             type="button"

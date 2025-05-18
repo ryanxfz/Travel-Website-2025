@@ -2,6 +2,7 @@ import {useState, useEffect} from 'react';
 import TravelList from '../components/travel/travelList';
 import TravelForm from '../components/travel/travelForm';
 import {deleteTravel, fetchAllTravels, postTravel} from '../api/travelApi';
+import SearchBar from '../components/SearchBar';
 
 export default function TravelPage(){
     const [travels, setTravels] = useState<any[]>([]);
@@ -54,19 +55,11 @@ export default function TravelPage(){
     return (
       <div>
         <h1>Your Travels</h1>
-        <input
-          type="text"
-          placeholder="Search by travel name"
+        <SearchBar
           value={search}
           onChange={e => setSearch(e.target.value)}
-          style={{
-            marginBottom: '1.5em',
-            width: '400px',
-            fontSize: '1.2em',
-            padding: '0.7em 1em',
-            borderRadius: '8px',
-            border: '1px solid #ccc'
-          }}
+          placeholder="Search by travel name"
+          style={{ minWidth: 400, maxWidth: 600, marginBottom: '0.3em' }}
         />
         <br />
         {!showForm && (

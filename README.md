@@ -75,7 +75,7 @@ This makes it easy to visually browse and find travels based on when they occur.
     VITE_OPEN_WEATHER_API_KEY=your_api_key_here
     ```
     - Restart the frontend server
-- Usage: When vieweing a destination, the app will fetch and display the current weather & temperature for the city.
+- Usage: When viewing a destination, the app will fetch and display the current weather & temperature for the city.
 - Example Output
     <br>Weather: Cloudy, 16.78°C
 

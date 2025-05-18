@@ -61,7 +61,7 @@ export function DestinationsPage() {
   }
 };
 
-  // Filter destinations based on search input (case-insensitive)
+  // Filter destinations based on search input
   const filteredDestinations = destinations.filter(destination =>
     destination.name.toLowerCase().includes(search.toLowerCase())
   );

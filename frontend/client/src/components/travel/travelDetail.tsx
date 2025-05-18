@@ -5,6 +5,7 @@ import { removeDestinationFromTravel } from '../../api/travelApi';
 import { fetchWeather } from '../../api/openWeatherApi';
 import './travel.css';
 import DestinationCard from '../destination/destinationCard';
+import SearchBar from '../SearchBar';
 
 export default function TravelDetail() {
   const navigate = useNavigate();
@@ -63,7 +64,6 @@ export default function TravelDetail() {
   )
   : [];
 
-  // Group destinations by month and year
   const groupedByMonthYear: { [monthYear: string]: any[] } = {};
   filteredDestinations.forEach((dest: any) => {
     if (!dest.timePeriod) return;
@@ -84,10 +84,8 @@ export default function TravelDetail() {
       : dateObj.toLocaleDateString();
   }
 
-
   return (
     <div className="travel-detail">
-      {/* Home Button */}
       <button
         onClick={() => navigate('/')}
         style={{
@@ -112,18 +110,15 @@ export default function TravelDetail() {
       <p>Travel Date: {new Date(travel.timePeriod).toLocaleDateString()}</p>
       
       <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1em' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5em' }}>
-          <span style={{ fontWeight: 800, color: '#535bf2' }}>Search Destinations:</span>
-          <input
-            type="text"
-            value={search}
-            onChange={e => setSearch(e.target.value)}
-            placeholder="Type to search..."
-            style={{ padding: '0.5em', borderRadius: '5px', border: '1px solid #ccc' }}
-          />
-        </div>
+        <SearchBar
+          value={search}
+          onChange={e => setSearch(e.target.value)}
+          label="Search Destinations:"
+          placeholder="Type to search..."
+          style={{ minWidth: 300, maxWidth: 400 }}
+        />
       </div>
-      
+
       {Object.entries(groupedByMonthYear).map(([monthYear, dests]) => (
         <div key={monthYear} style={{ marginBottom: '2em', width: '100%' }}>
           <h3 style={{ color: '#3498db', marginBottom: '0.8em', fontSize: '2rem' }}>------{monthYear}------</h3>
