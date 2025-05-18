@@ -93,7 +93,7 @@ export default function TravelDetail() {
       
       <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1em' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5em' }}>
-          <span style={{ fontWeight: 500 }}>Search Destinations:</span>
+          <span style={{ fontWeight: 800 }}>Search Destinations:</span>
           <input
             type="text"
             value={search}

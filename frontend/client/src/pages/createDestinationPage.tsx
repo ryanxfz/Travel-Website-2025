@@ -35,6 +35,7 @@ export function CreateDestinationPage() {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
+    setError(null);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -46,6 +47,7 @@ export function CreateDestinationPage() {
     if(travelTimePeriod && formData.timePeriod){
       if(formData.timePeriod < travelTimePeriod){
         setError("!!! Destination date cannot be before travel date !!!");
+        setIsLoading(false);
         return;
       }
     }
