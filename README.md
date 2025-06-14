@@ -1,4 +1,4 @@
-# FWE-SS-25-1123134
+# FWE-SS-25
 
 ## Project Overview:
 This project is a full-stack travel planner application that allows users to create, view, and manage their travels and destinations. The backend is built with Node.js and Express, while the frontend uses React and TypeScript. Data is persisted in a PostgreSQL database, and Drizzle is used for Object Relational Mapping (ORM). The backend is run in Docker.
