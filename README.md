@@ -12,8 +12,8 @@ This project is a full-stack travel planner application that allows users to cre
 ### Getting the Project Running:
 #### Step 1: Clone the Repository and go to the project directory
 ```sh
-git clone https://code.fbi.h-da.de/stryzebua/fwe-ss-25-1123134.git
-cd fwe-ss-25-1123134
+git clone https://github.com/ryanxfz/Travel-Website-2025.git
+cd Travel-Website-2025
 ```
 #### Step 2: Setting up the Backend
 Docker is used for the backend, so the first thing you need to do is to get it set up. From this step, make sure that docker desktop is already installed and running.
@@ -46,7 +46,7 @@ The backend will run on http://localhost:4000
 #### Step 3: Run the frontend
 On a separate terminal, go to the frontend directory:
 ```sh
-cd fwe-ss-25-1123134
+cd Travel-Website-2025
 cd frontend
 cd client
 ```
@@ -154,4 +154,4 @@ cd backend/postman-colletion
 - Click "Import" to add all API endpoints to your Postman workspace
 
 ## Support
-Should any issues arise (e.g., problems with API keys), please open an issue or contact the maintainer (me) directly via email.
+Should any issues arise (e.g., problems with API keys), please open an issue or contact the maintainer (me) directly.
